@@ -1,0 +1,63 @@
+﻿@model ChatBox.Models.IndexViewModel
+@{
+    ViewBag.Title = "Manage";
+}
+
+
+
+<p class="text-success">@ViewBag.StatusMessage</p>
+
+
+
+
+
+
+
+
+
+
+<div>
+    <a class="hiddenanchor" id="signin"></a>
+    <div class="login_wrapper">
+        <div class="animate form login_form">
+            <section class="login_content">
+                <div>
+                    <h4>Cài đặt tài khoảng</h4>
+                    <hr />
+                    <dl class="dl-horizontal">
+                        <dt>Mật khẩu</dt>
+                        <dd>
+                            [
+                            @if (Model.HasPassword)
+            {
+                                @Html.ActionLink("Thay đổi mật khẩu", "ChangePassword")
+                            }
+                            else
+                            {
+                                @Html.ActionLink("Tạo Password", "SetPassword")
+                            }
+                            ]
+                        </dd>
+                        <dt>Mạng xã hội</dt>
+                        <dd>
+                            @Model.Logins.Count [
+                            @Html.ActionLink("Quản ký", "ManageLogins") ]
+                        </dd>
+          
+
+                    </dl>
+                </div>
+
+                <div class="clearfix"></div>
+                <div class="separator">
+                    <div>
+                        <i class="fa fa-paw"></i> TABWEB!
+                        <p>©2017 All Rights Reserved</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+
+

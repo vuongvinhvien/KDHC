@@ -1,0 +1,88 @@
+﻿
+@{
+    Layout = null;
+}
+<div class="tab-it" id="tab-report" style="display: block;">
+    <article id="main">
+        <aside id="leftpanel">
+            <ul class="sidebar">
+                <li class="listchat current" id="chats_report">
+                    <a style="cursor: pointer;"><i class="imgreport icon-menu i-chat"></i>Chat</a>
+                </li>
+                <li class="listchat" id="rattings_report">
+                    <a style="cursor: pointer;"><i class="imgreport icon-menu i-ratting"></i>Đánh giá</a>
+                </li>
+       
+     
+            </ul>
+        </aside>
+        <section id="rightpanel">
+            <h1 class="title">Chi tiết</h1>
+            <div class="box maincontent">
+                <div class="headerbox">
+                    <div id="filter-affiliate">
+                        <label>Lọc thông tin:</label>
+                        <ul>
+                            <li>
+                                <a id="1" class="select current option">Hôm nay</a>
+                            </li>
+                            <li>
+                                <a id="7" class="select option">7 ngày vừa qua</a>
+                            </li>
+                            <li>
+                                <a id="30" class="select option">30 ngày vừa qua</a>
+                            </li>
+                            <li>
+                                <a id="customdate" class="select">Tùy chỉnh</a>
+                                <div class="selectdate" style="display: none;">
+                                    <div id="reservation"></div>
+                                    <div id="date_range" style="display: none;"></div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div id="rp-chats">
+                        <div id="linksearch">
+                            @*<div id="dropdown_report" class="search-visitors form_ag_deps">
+                                Chọn Agent/Bộ phận
+                            </div>*@
+                            <div id="select_agents" style="display: none;"></div>
+                            <div id="select_departments" style="display: none;"></div>
+                            <div id="chart" style="display: none;">chats_report</div>
+                            <div id="formsearch_report" class="form_select">
+                                <div class="chats_slimscroll">
+                                    <ul class="linesearch">
+                                        <li id="allagent_dept" style="border-bottom: 1px dotted #a2a2a2;">
+                                            <a>Tất cả</a>
+                                        </li>
+                                        <!--List Agents-->
+                                        <li class="top">AGENTS</li>
+                                        <li id="cluetinkerton123" class="agents num_obj">
+                                            <a>DLSKJF SLKDFJ</a>
+                                        </li>
+                                        <!--List departments-->
+                                        <li class="top">Bộ phận</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+                <div id="test2"></div>
+                <div class="tabaffiliate">
+                    <div id="container">
+                      
+                    </div>
+                </div>
+            </div>
+            <style type="text/css">
+                .daterangepicker {
+                    left: 628px;
+                    right: auto;
+                    top: 225px;
+                }
+            </style>
+        </section>
+    </article>
+</div>

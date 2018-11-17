@@ -1,0 +1,232 @@
+﻿@model ChatBox.Models.HistoryViewModel
+
+
+@{
+    Layout = null;
+}
+
+<div class="tab-it" id="tab-image" style="display: block;">
+    <article id="main">
+        <section id="history">
+
+
+
+            <div class="headerbox">
+                <div id="filter">
+                    <label>Lọc cuộc chat theo: </label>
+                    <ul class="navfilter">
+                        <li id="date" class="li_parent dateparent">
+                            <a href="javascript:void(0);" id="date_option" class="date_change filter_opt">Ngày</a>
+                            <div class="datelist" id="hisdate" style="display: none;">
+                                <ul class="sub">
+                                    <li class="his_filter his_default date_history" _key="today">
+                                        <a href="javascript:void(0);">Hôm nay</a>
+                                    </li>
+                                    <li class="his_filter date_history" _key="yesterday">
+                                        <a href="javascript:void(0);">Hôm qua</a>
+                                    </li>
+                                    <li class="his_filter date_history" _key="last_7">
+                                        <a href="javascript:void(0);">7 ngày vừa qua</a>
+                                    </li>
+                                    <li class="his_filter date_history" _key="last_30">
+                                        <a href="javascript:void(0);">30 ngày vừa qua</a>
+                                    </li>
+                                    <li>
+                                        <a id="customhistory" href="javascript:void(0);">Tùy chỉnh</a>
+                                        <div id="customdate-his" style="display: none;">
+                                            <p>Từ: <input class="form-control" type="text" id="datepicker"></p><p>Đến: <input type="text" class="form-control" id="datepickerlast"></p>
+                                            <button class="btn btn-primary" id="chose_date_rank">OK</button>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+
+                        @if (@ViewBag.TypeAccount == true)
+                        {
+                            <li id="agent" class="dateparent">
+                                <a href="javascript:void(0);" class="agent_change filter_opt">Agent</a>
+                                <div class="datelist agent_datelist" style="display: none;">
+                                    @if (Model.ListAgent != null)
+                                    {
+                                        <ul class="sub list_all_agent">
+                                            @foreach (var item in Model.ListAgent)
+                                            {
+                                                <li class="his_filter agent_history" _key="@item.Id"><a href="javascript:void(0);" class="">@item.Email.Split('@')[0]</a></li>
+                                            }
+                                        </ul>
+                                    }
+                                </div>
+                            </li>
+                        }
+                        @*<li id="rating" class="dateparent">
+                                <a href="javascript:void(0);" class="rate_change filter_opt">Đánh giá</a>
+                                <div class="datelist" style="display: none;">
+                                    <ul class="sub">
+                                        <li class="his_filter rating_history" like="true">
+                                            <a href="javascript:void(0);">Đánh giá tốt</a>
+                                        </li>
+                                        <li class="his_filter rating_history" like="false">
+                                            <a href="javascript:void(0);">Đánh giá không tốt </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>*@
+
+
+                    </ul>
+                    <a class="btn btnreturn" id="btn_return" style="display:none;"><i id="text_return">Quay lại </i> <i id="returning" class="subizdasboard iclose" style="cursor: pointer;"></i></a>
+                </div>
+                <div id="linksearch">
+                    <div class="search-visitors" id="form_dropdown">Tìm kiếm visitor</div>
+                    <div id="formsearch_his" class="formsearch" style="display: none;">
+                        <span class="closesearch close_form">Close x</span>
+                        <ul class="linesearch">
+                            <li>
+                                <input type="text" name="visitor_message" id="txt_message" placeholder="Nội dung tin nhắn" class="text">
+                            </li>
+                            <li>
+                                <input type="text" name="visitor_name" id="txt_name" placeholder="Tên visitor" class="text">
+                            </li>
+                            <li>
+                                <input type="text" name="visitor_email" id="txt_email" placeholder="Email visitor" class="text">
+                            </li>
+                            <li>
+                                <input type="text" name="visitor_phone" id="txt_phone" placeholder="Số điện thoại visitor" class="text">
+                            </li>
+                        </ul>
+                        <div class="bottomsearch">
+                            <span class="linksearch"><a class="filter_search" style="cursor: pointer;">Tìm kiếm ngay<i class="fa fa-search" aria-hidden="true"></i></a></span>
+                        </div>
+                    </div>
+                </div>
+                <h1 class="title" style="margin: 10px 0px 0 0;">
+                    <a href="javascript:void(0)" ><i class="fa fa-times" aria-hidden="true"></i></a>
+                </h1>
+
+                <div id="filter_option" style="display: none;">default_history</div>
+                <div id="limit_row" style="display: none;">12</div>
+                <div id="offset_row" style="display: none;">0</div>
+                <a id="check_op" href="https://dashboard.subiz.com/#" style="display: none;"></a>
+            </div>
+            <table id="table_history" width="100%" border="0" cellspacing="0" cellpadding="0" class="table">
+                <tbody>
+                    @foreach (var item in Model.History)
+                    {
+                        <tr class="history_row" idAjaxAgent="@item.Agent" IDVisitor="@item.Visitor" IDAgent="@item.Agent">
+                            <td width="3%">
+                                @if (string.IsNullOrEmpty(item.Agent))
+                                {
+                                    <i class="fa fa-envelope" aria-hidden="true"></i>
+                                }
+                                else
+                                {      <i class="fa fa-comments" aria-hidden="true"></i> }
+
+                            </td>
+                            <td class="s_history_view" style="cursor: pointer;">
+                                <a class="his" style="cursor: pointer;">
+                                    <strong class="his_vis_name">@item.Address  #@item.Visitor @(string.IsNullOrEmpty(item.VisitorName) ? "" : "(" + item.VisitorName + ")") @(string.IsNullOrEmpty(item.AgentName) ? "" : "và " + item.AgentName ) </strong>
+                                </a>
+                                <span>
+                                    @Html.Raw(@item.sumary)
+                                </span>
+
+                            </td>
+                            <td width="15%">
+                                <i class="flag-all flag-vn"></i>
+                                @item.Address
+                            </td>
+                            <td width="10%">
+                                @item.Date.ToString()
+                            </td>
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <div class="historyview" style="display: none;">
+                <div class="viewhistory-top">
+                    <span class="closesearch" id="closehistory">Đóng x</span>
+                    <div id="tabs">
+                        <ul class="ui-tabs-nav" role="tablist">
+                            <li class="ui-tabs-active ui-state-active"><a class="ui-tabs-anchor tab_his_1" id="ui-id-1" style="cursor: pointer;">TRANSCRIPT</a></li>
+                            @*<li><a class="ui-tabs-anchor tab_his_2" id="ui-id-2" style="cursor: pointer;">Thông tin </a></li>
+                            <li><a class="ui-tabs-anchor tab_his_3" id="ui-id-3" style="cursor: pointer;;">Ghi chú</a></li>*@
+                        </ul>
+                        <input type="hidden" id="flag_click_info" value="no">
+                        <div id="tabhistory1" class="contentab" style="display: block;">
+
+                            <div class="slimScrollDiv" style="position: relative; width: auto; height: 345px;">
+                                <div class="transcript" id="style-2" style="overflow-y: auto; width: auto; height: 355px;">
+
+
+
+                                </div><div class="slimScrollBar ui-draggable" style="background: rgb(0, 0, 0); width: 7px; position: absolute; top: 0px; opacity: 0.4; display: none; border-radius: 7px; z-index: 99; right: 1px; height: 44.983px;"></div><div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; border-radius: 7px; background: rgb(51, 51, 51); opacity: 0.2; z-index: 90; right: 1px; display: none;"></div>
+                            </div>
+
+                            <div class="history-details-bottom">
+                                <div class="add-tag">
+                                    <div class="list-tags">
+
+                                    </div>
+                                    <div class="add-tag-form">
+                                        <a class="add-a-tag" style="display:none;">Gán tag...</a>
+                                        <div class="list-tags-dropdowwn">
+                                            <ul></ul>
+                                            <input type="text" class="find-tag" name="">
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                        <div id="tabs_hide"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </article>
+</div>
+
+<script id="data-template-History" type="x-tmpl-mustache">
+    <tr class="history_row" IDVisitor="{{VisitorID}}" IDAgent="{{AgentID}}">
+        <td width="3%">
+            {{{iconstt}}}
+        </td>
+        <td class="s_history_view" style="cursor: pointer;">
+            <a class="his" style="cursor: pointer;">
+                <strong class="his_vis_name">  {{Visitor}} {{VisitorName}} {{AgentName}}</strong>
+            </a>
+            <span>
+                {{{sumary}}}
+            </span>
+        </td>
+        <td width="15%">
+            <i class="flag-all flag-vn"></i>
+            {{Address}}
+        </td>
+        <td width="10%">
+            {{DateTimeStart}}
+        </td>
+    </tr>
+</script>
+
+
+<script id="data-template-History-conver" type="x-tmpl-mustache">
+    <div class="line">
+        <strong>{{NameActor}}</strong>
+        <span class="date">{{DateAction}}</span>
+        <p class="ms-pendding">{{{Messger}}}</p>
+    </div>
+</script>
+
+
+<script id="data-template-History-conver2" type="x-tmpl-mustache">
+    <div class="line">
+        <b>{{NameActor}}</b>
+        <span class="date">{{DateAction}}</span>
+        <p class="ms-pendding">{{{Messger}}}</p>
+    </div>
+</script>

@@ -1,0 +1,264 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<head>
+    <link href="~/Content/jquery-ui.theme.min.css" rel="stylesheet" />
+    <link href="~/Content/Chatcss.css" rel="stylesheet" />
+    <link href="~/Content/Nhan.css" rel="stylesheet" />
+    <link href="~/Content/Home.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">   
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/fonts/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+
+    <style>
+        body {
+            font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
+            font-size: 14px;
+            font-weight: normal;
+            color: #444;
+        }
+    </style>
+    @RenderSection("css", false)
+</head>
+<body>
+    <section id="headtop">
+        <div id="topright">
+            <div class="bmember">
+
+                <span class="welcome reset" username="tanmacao">
+                    @Html.Partial("_LoginPartial")
+                </span>
+                <div class="statusdropdown">
+                    <ul>
+                        <li class="i-status" id="li-available">
+                            <a href="javascript:void(0)">
+                                <i class="subizdasboard status" id="i-available"></i>
+                                <a class="a-available" href="javascript:void(0);">Available</a>
+                            </a>
+                        </li>
+                        <li class="i-status" id="li-away">
+                            <a href="javascript:void(0)">
+                                <i class="subizdasboard status" id="i-away"></i>
+                                <a class="a-away" href="javascript:void(0);">Away</a>
+                            </a>
+                        </li>
+                        <li id="show-notify-config">
+                            <a href="javascript:void(0)">
+                                <i class="subizdasboard status" id="i-notify"></i>
+                                <a href="javascript:void(0)">Thông báo</a>
+                            </a>
+                        </li>
+                        <li class="sound-config">
+                            <a href="javascript:void(0)">
+                                <i class="subizdasboard status" id="i-sound"></i> <a href="javascript:void(0);">Âm thanh</a>
+                            </a>
+                        </li>
+                        <li style="display: none;" class="support-config"><i class="subizdasboard status" id="i-support"></i> <a target="_blank" href="https://dashboard.subiz.com/support.html">Support</a></li>
+                        <li class="logout" id="logout_action">
+                            <a href="javascript:void(0)">
+                                <i class="subizdasboard status" id="i-logout"></i> <a href="javascript:void(0);">Đăng xuất</a>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    <nav id="nav">
+        <ul class="menubar">
+            <li id="visitors_menu" class="current">
+                <a href="javascript:void(0)" title="Visitor" Controller="Visitor" class="tab  parent" ;=""><b><i class="iconmenu icon-visitor"></i> Visitor</b></a>
+            </li>
+            <li class="onchange_menu">
+                <a href="javascript:void(0)" title="Lịch sử" Controller="History" class="tab parent"><b><i class="iconmenu icon-history"></i> Lịch sử</b></a>
+            </li>
+            <li class="onchange_menu menu_agent">
+                <a href="javascript:void(0)" title="Agent" Controller="Agent" class="tab parent"><b><i class="iconmenu icon-agents"></i> Agent</b></a>
+            </li>
+            @*<li class="onchange_menu">
+                <a href="javascript:void(0)" title="Thống kê" Controller="Report" class="tab parent"><b><i class="iconmenu icon-reports"></i>Thống kê</b></a>
+            </li>*@
+            <li>
+                <a href="javascript:void(0)" class="settinghome onchange_menu" Controller="Setting" id="sbz_widget_setting" click_from_visitor="false" click_from_header="false" title="Setting" _url="https://dashboard.subiz.com/setting" _controller="setting"><i class="fa fa-cog" aria-hidden="true"></i>Cài đặt</a>
+            </li>
+        </ul>
+        <div class="tab-content">
+
+            <div class="tab-it" id="content_js_visistor" style="display: block;">
+                <div id="body_0">
+                    <article id="main">
+                        <div id="first_login_content" style="display: none;">
+                            <div class="guide-step1">
+                                <div class="guide-desc1">
+                                    <i class="arrow-guide"></i>
+                                    <p>Đây là những danh mục giúp bạn lọc khách truy cập vào web. Mặc định sẽ là Active Visitors; idle Visitors; Request chats - Các visitor đang yêu cầu trợ giúp; và các Nhãn.</p>
+                                    <p>
+                                        <a href="javascript:void(0)" class="btn-guide btn-guide-step1">Tiếp tục</a> Hoặc <a href="javascript:void(0);" class="skip-guide">Bỏ qua hướng dẫn này</a>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="guide-step2">
+                                <div class="guide-desc2">
+                                    <i class="arrow-guide-r"></i>
+                                    <p>Những khách truy cập được liệt kê và kèm theo những thông tin của họ. Mỗi dòng là một khách đang truy cập website. bạn có thể click vào một khách truy cập để xem đầy đủ thông tin hoặc chat với họ.</p>
+                                    <p>
+                                        <a href="javascript:void(0)" class="btn-guide btn-guide-step2">Tiếp tục</a> Hoặc <a href="javascript:void(0);" class="skip-guide">Bỏ qua hướng dẫn này</a>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="guide-step3">
+                                <div class="guide-desc3">
+                                    <p>Những nút đại diện cho các cuộc hội thoại của bạn. Bạn có thể di chuyển giữa các cuộc trò chuyện bằng cách chọn các nút khác nhau.</p>
+                                    <p>
+                                        <a href="javascript:void(0)" class="btn-guide btn-guide-step3">Tiếp tục</a> Hoặc <a href="javascript:void(0);" class="skip-guide">Bỏ qua hướng dẫn này</a>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="guide-step4">
+                                <div class="guide-desc4">
+                                    <i class="arrow-guide-r"></i>
+                                    <p>Đây là cửa sổ, nơi bạn có thể trò chuyện với khách truy cập website của bạn. Trong đó bao gồm cả thông tin chi tiết của khách truy cập cùng với những nội dung cuộc trò chuyện.</p>
+                                    <p>
+                                        <a href="javascript:void(0)" class="btn-guide btn-guide-step4" id="s_close_guide">Kết thúc</a>
+                                    </p>
+                                </div>
+                            </div>
+                            <aside id="leftpanel_f">
+                                <div class="mk-sidebar"></div>
+                            </aside>
+                            <section id="rightpanel_f">
+                                <div class="mk-table"></div>
+                                <div class="mk-chat"></div>
+                            </section>
+                            <div class="mk-buttonchat">
+                                <div class="mk-tabs"></div>
+                            </div>
+                        </div>
+
+                        <div id="check_f_content" style="">
+
+                            <aside id="leftpanel">
+                                <ul class="sidebar" id="menushow">
+                                    <li class="a_current">
+                                        <a href="javascript:void(0);" id="active">Active Visitors <span class="count_active">(0)</span></a>
+                                    </li>
+
+                                    <li>
+                                        <a href="javascript:void(0);" id="request_chat">Yêu cầu Chat <span class="count_request_chat">(0)</span></a>
+                                    </li>
+                                </ul>
+                                <div class="more" id="getmore" style="display:none">
+                                    <a href="javascript:void(0);"><b>Nhiều hơn</b></a>
+                                </div>
+                                <ul class="sidebar" id="menumore" style="display: none;"></ul>
+                                <div class="list_label" style="display:none"></div>
+
+                            </aside>
+                            <section id="rightpanel">
+                                <div class="content sub_body" id="content_1">
+                                    <!-- tab 1-->
+                                    <h1 class="title">Active Visitors</h1>
+                                    <div class="box maincontent">
+                                        <div class="headerbox">
+                                            <div id="linksearch">
+                                                <div class="search-visitors_s" id="linkdropdown">Tìm kiếm visitor</div>
+                                                <div id="formsearch">
+                                                    <span class="closesearch">Đóng <i class="subizdasboard iclose"></i></span>
+                                                    <ul class="linesearch">
+                                                        <li>
+                                                            <input type="text" id="visitor_name" placeholder="Visitor name" class="text">
+                                                        </li>
+                                                        <li>
+                                                            <input type="text" id="visitor_email" placeholder="Visitor email" class="text">
+                                                        </li>
+                                                        <li>
+                                                            <input type="text" id="visitor_agent" placeholder="Agent" class="text">
+                                                        </li>
+                                                        <li>
+                                                            <select name="type" class="op-search" id="visitor_type">
+                                                                <option value="0" selected="selected">Tất cả các loại</option>
+                                                                <option value="return">Quay lại</option>
+                                                                <option value="new">Mới</option>
+                                                            </select>
+                                                        </li>
+                                                        <li>
+                                                            <label>Online nhiều hơn</label>
+                                                            <select name="online" class="op-search time" id="visitor_time">
+                                                                <option value="0" selected="selected">Tổng số phút</option>
+                                                                <option value="1">1 phút</option>
+                                                                <option value="2">2 phút</option>
+                                                                <option value="5">5 phút</option>
+                                                                <option value="10">10 phút</option>
+                                                            </select>
+                                                        </li>
+                                                    </ul>
+                                                    <div class="bottomsearch"> <span class="linksearch"><a id="search_visitor" href="javascript:void(0);">Tìm kiếm ngay <i class="subizdasboard icon-s"></i></a></span> </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <table id="tbl_visitor" width="100%" border="0" cellspacing="0" cellpadding="0" class="table">
+                                            <thead>
+                                                <tr class="top">
+                                                    <td class="clumn1">&nbsp;</td>
+                                                    <td class="clumn2">Visitor</td>
+                                                    <td class="clumn3">Địa điểm (Ip)</td>
+                                                    <td class="clumn4">Online</td>
+                                                    <td class="looking">Đang xem</td>
+                                                    <td class="email_db">Email</td>
+                                                </tr>
+                                            </thead>
+                                            <tbody></tbody>
+                                        </table>
+                                        @*<div class="novisitor_s">
+                                                <div class="novisitorin">
+                                                    <h1>Bạn chưa có khách truy cập</h1>Xem trước tính năng chat trên <a target="_blank" href="https://dashboard.subiz.com/preview/?id=65135">live preview site</a>.
+                                                </div>
+                                            </div>*@
+                                    </div>
+                                </div>
+                                <!--end tab 1-->
+                            </section>
+                        </div>
+
+                    </article>
+                </div>
+            </div>
+            <div class="wrapper_Loader " style="display:none">
+                <div class="loader"></div>
+            </div>
+
+            <div class="tab_change">
+            </div>
+        </div>
+    </nav>
+    <script id="data-template-History-line_cliend" type="x-tmpl-mustache">      
+        <div class="border textchatleft"><p class="namechatspan" style="color:#294358;">{{{textchatmsee}}} </p></div>    </script>
+    <script id="data-template-History-line_agent" type="x-tmpl-mustache">
+        <div class="border textchatright"><p namesg="{{nameagent}}" style="color:#294358; "><span class="spantextchat">{{{textchatmsee}}} </span></p></div>       
+    </script>
+    @RenderBody()
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/mustache.min.js"></script>
+    <script src="~/Scripts/Indexcontroler.js"></script>
+    <script src="~/Scripts/jquery.twbsPagination.min.js"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+
+    <script src="~/Scripts/Formjs.js"></script>
+    <script>
+        $('.tab_chat_close').click(function () {
+            $('.tab_chatwin').hide();
+        })
+    </script>
+    <script src="~/Scripts/jquery.signalR-2.2.2.min.js"></script>
+    <!--Reference the autogenerated SignalR hub script. -->
+    <script src="~/signalr/hubs"></script>
+    @RenderSection("scripts", false)
+</body>

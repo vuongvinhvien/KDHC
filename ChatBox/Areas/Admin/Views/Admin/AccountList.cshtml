@@ -1,0 +1,45 @@
+﻿@model IEnumerable<ChatBox.Areas.Admin.Models.ListAccoutViewModel>
+
+@{
+    ViewBag.Title = "AccountList";
+    Layout = "~/Areas/Admin/Views/Shared/HomeAdmin.cshtml";
+}
+
+<h2>Danh Sách Tài Khoản</h2>
+
+<p>
+    @Html.ActionLink("Tạo tài khoản", "Register", "AccountAdmin",null,new { @class = "btn btn-info" })
+</p>
+<table class="table text-left">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>     
+        <th>
+            @Html.DisplayNameFor(model => model.UserName)
+        </th>
+        <th>Trạng thái hoạt động</th>
+        <th>Action</th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+     
+        <td>
+            @Html.DisplayFor(modelItem => item.UserName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.status)
+        </td>
+        <td>
+   
+            @Html.ActionLink("Chi tiết", "DetailAccount", new { id=item.Id }) |
+            @Html.ActionLink("Xóa", "DeleteAccount", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

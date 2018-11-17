@@ -1,0 +1,150 @@
+﻿@model  Store.Data.DataDbContext.Setting
+@{
+    Layout = null;
+}
+<div class="tab-it" id="tab-setting" style="display: block;">
+    <article id="main">
+        <aside id="leftpanel">
+            <ul class="sidebar">
+                <li id="s_general_setting" url="" class="current">
+                    <a class="dropdown" href="javascript:void(0)">
+                        <i class="fa fa-cog" aria-hidden="true"style="margin-right:20px"></i>Cài đặt chung
+                    </a>
+                </li>
+                <li class="setting_right" _url="">
+                    <a href="javascript:void(0)"><i class="fa fa-archive" aria-hidden="true" style="margin-right:20px"></i>Tích hợp</a>
+                </li>
+            </ul>
+        </aside>
+        <section id="rightpanel">
+            <form id="frm_general" class="frm_general" enctype="multipart/form-data" action="https://dashboard.subiz.com/agents/ajax_upload_image_default">
+                <h1 class="title">Cài đặt chung</h1>
+                <div class="box maincontent">
+                    <div id="general">
+                        <ul class="grn-setting">
+                            <li>
+                                <h2>Gửi chat transcript qua email</h2>
+                            </li>
+                            <li class="error_submit" style="display:none;"></li>
+                            <li id="id_email_send_">
+                                <span>
+                                    @Model.EmailSendScript
+                                </span>(<a href="javascript:void(0)" class="edit-show">Sửa</a>)
+                                <div class="edit-form">
+                                    <input type="text" class="text" placeholder="someone@example.com" name="email_transcript" value="@Model.EmailSendScript">
+                                    <p>Bạn có thể nhập nhiều địa chỉ email (được ngăn cách nhau bởi dấu phẩy)</p>
+                                    <p>ví dụ: someone@example.com, someone@example.com </p>
+                                </div>
+                            </li>
+
+
+
+
+                            <li>
+                                <input type="checkbox" id ="setting_sound" @(Model.Sound == true ? "checked" : "")> Bật âm thanh thông báo
+                            </li>
+
+                            <!-- File sharing -->
+                            <li>
+                                <h2>Chia sẻ file</h2>
+                            </li>
+                            <li>
+                                <div>
+                                    <div class="clumn">
+                                        <input type="checkbox" id ="setting_share_file_Agent"  @(Model.ShareFileAgent == true ? "checked" : "")> Bật cho Agent
+                                    </div>
+                                    <div class="clumn">
+                                        <input type="checkbox" id="setting_share_file_visitor" @(Model.ShareFileVisitor == true ? "checked" : "")> Bật cho Visitor
+                                    </div>
+                                </div>
+                                Loại file hỗ trợ: PDF (.pdf), PNG (.png), JPEG (.jpeg), JPG (.jpg), GIF (.gif), TXT (.txt), CSV (.csv)
+
+                            </li>
+                            <!-- /File sharing -->
+                            <li class="buttons">
+                                <a href="javascript:;" class="btn btnsubmit btnsubmit_general">
+                                    Lưu thay đổi
+                                </a>
+                                
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </form>
+            <div class="tichhop">
+                <h1 class="title">Tích hợp</h1>
+                <div class="box maincontent">
+                    <div class="Installations">
+
+                        <div class="install-content">
+
+                            <h3>Mã nhúng cửa sổ chat ChatSupport</h3>
+                            <p>Sao chép đoạn mã dưới đây và chèn vào mã nguồn html của website giữa &lt;body&gt;&lt;/body&gt; tags. Mã nhúng này phải được chèn vào từng website riêng rẽ bạn muốn hiện cửa sổ chat</p>
+                            <div class="bgpretag"> 
+                                                            
+                                document.addEventListener("DOMContentLoaded", function (event) {
+
+                                var wrapper_iframe = document.createElement("div");
+                                wrapper_iframe.style.width = "250px";
+                                wrapper_iframe.style.height = "30px";
+                                wrapper_iframe.style.transition = "height 0.3s ease";
+                                wrapper_iframe.style.position = "fixed";
+                                wrapper_iframe.style.bottom = "0px";
+                                wrapper_iframe.style.cursor = "pointer";
+                                wrapper_iframe.style.right = "10px";
+                                wrapper_iframe.style.backgroundColor = "rgba(0, 0, 0, 0.0)";
+                                wrapper_iframe.className += " wrapper_iframe";
+                                document.body.appendChild(wrapper_iframe);
+                                var wrapper_iframe_tittle = document.createElement("div");
+                                wrapper_iframe_tittle.style.width = "100%";
+                                wrapper_iframe_tittle.style.cssFloat = "left";
+                                wrapper_iframe_tittle.style.height = "30px";
+                                wrapper_iframe_tittle.style.bottom = "0px";
+                                wrapper_iframe_tittle.style.cursor = "pointer";
+                                wrapper_iframe_tittle.style.right = "10px";
+                                wrapper_iframe_tittle.style.backgroundColor = "rgba(0, 0, 0, 0.0)";
+                                wrapper_iframe_tittle.style.position = "relative";
+                                wrapper_iframe_tittle.style.zIndex = "999";
+                                wrapper_iframe_tittle.className += " wrapper_iframe_tittle";
+                                wrapper_iframe_tittle.innerHTML = "";
+                                var ifrm = document.createElement("iframe");
+                                ifrm.setAttribute("wmode", "transparent");
+                                ifrm.setAttribute("id", "idchatbox");
+                                ifrm.setAttribute("src", "http://localhost:38307/Home/chatbox/@ViewBag.IDRoom");
+                                ifrm.setAttribute("scrolling", "no");
+                                ifrm.style.position = "absolute";
+                                ifrm.style.top = "0";
+                                ifrm.style.left = "0";
+                                ifrm.style.width = "250px";
+                                ifrm.style.height = "450px";
+                                ifrm.style.border = "none";
+                                ifrm.style.boxShadow = "0 2px 25px rgba(0,0,0,0.2)";
+                                ifrm.style.left = "-10px";
+                                ifrm.style.borderRadius = "10px";
+                                wrapper_iframe.appendChild(wrapper_iframe_tittle);
+                                wrapper_iframe.appendChild(ifrm);
+                                wrapper_iframe.addEventListener("click", (function () {
+                                if (wrapper_iframe.style.height != ifrm.style.height) {
+                                {
+                                wrapper_iframe.style.height = ifrm.style.height;
+                                wrapper_iframe.style.width = "310px";
+                                ifrm.style.width = "310px";
+                                }
+                                } else {
+                                wrapper_iframe.style.height = "30px";
+                                wrapper_iframe.style.width = "250px";
+                                ifrm.style.width = "250px";
+                                }
+                                }))
+
+                                });
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- src files sharing -->
+        </section>
+    </article>
+</div>

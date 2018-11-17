@@ -1,0 +1,12 @@
+﻿
+@{
+    ViewBag.Title = "SendMailConfirm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>SendMailConfirm23</h2>
+
+<div class="row">
+    <span>Bạn chưa xác thực email xin vui lòng bấm SendMail để tiến hành xác thực</span>
+    @Html.ActionLink("Send Mail", "SendMailConfirm", new { @userId = ViewBag.ID })
+</div>

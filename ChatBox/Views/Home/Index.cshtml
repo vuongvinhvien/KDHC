@@ -1,0 +1,185 @@
+﻿@model Store.Data.DataDbContext.Setting
+@{
+    Layout = "~/Views/Shared/_LayoutChat.cshtml";
+}
+@*$('#displayname').val(prompt('Enter your name:', ''));*@
+@section scripts {
+    <!--Script references. -->
+    <!--The jQuery library is required and is referenced by default in _Layout.cshtml. -->
+    <!--Reference the SignalR library. -->
+    <!--SignalR script to update the chat page and send messages.-->
+<script>function startChartHub() { var t = $.connection.chatHub; t.client.clientonline = function (t, e, a, s, i, c, n, l, o) { if ($("." + s).attr("ipmac") != e + a) { if ($("#tbl_visitor tbody").append("  <tr class='" + s + " " + i + "' ipmac='" + e + a + "'  onclick='sendprivatemail(this);'>  <td class='clumn1'> </td><td class='clumn2'>" + t + "</td><td class='clumn3'>" + l + "</td><td class='clumn4'>" + Math.trunc(((new Date).getTime() - parseInt(o)) / 6e4) + "</td><td class='looking'>" + a + "</td><td class='email_clients'>" + c + "</td></tr>"), $("#tbl_visitor tbody").append("<script>var interval = setInterval(function() {  var minutes =parseInt($('." + s + " .clumn4').text().trim());minutes += 1;$('." + s + " .clumn4').html(minutes);}, 60000);<\/script>"), 0 != $(".message_welcome > div").size()) for (var r = 0; r < $(".message_welcome > div").size() ; r++) { if ($(".message_welcome > div").eq(r).attr("ipmac") == "tab_web" + e + a) { $(".message_welcome > div").eq(r).addClass("tab_web" + i), $(".chat_botton > li ").eq(r).find("a").addClass("ab_web" + i); break } r + 1 == $(".message_welcome > div").size() && $(".message_welcome").append("<div class='messagechatbox tab_web" + s + " tab_web" + i + "' ipmac='tab_web" + e + a + "'></div>") } else $(".message_welcome").append("<div class='messagechatbox tab_web" + s + " tab_web" + i + "' ipmac='tab_web" + e + a + "'></div>"); countclient++, $(".count_active").html("(" + countclient + ")") } else $("." + s).addClass(i), $(".tab_web" + s).addClass("tab_web" + i), $(".ab_web" + s).addClass("ab_web" + i); try { $(".ab_web" + i + " .botton_online").css("color", "green"), $(".ab_web" + i).parent().show() } catch (t) { } }, t.client.clientoffline = function (t) { if ($("." + t).attr("class").trim().split(" ").length > 2) $("." + t).removeClass(t); else { 0 != $(".ab_web" + t).length && countrequest > 0 && countrequest--, $("." + t).remove(), countclient--, $(".count_active").html("(" + countclient + ")"), $(".count_request_chat").html("(" + countrequest + ")"); try { $(".ab_web" + t + " .botton_online").css("color", "#a4a4a4") } catch (t) { } } try { $(".tab_web" + t).removeClass("tab_web" + t) } catch (t) { } try { $(".ab_web" + t).removeClass("ab_web" + t) } catch (t) { } }, t.client.updateclientonline = function (t, e, a, s, i, c, n, l, o, r, b) { if ($("." + c).attr("ipmac") != s + i) { if (emailagent == o || null == o ? $("#tbl_visitor tbody").append("  <tr class='" + c + " " + n + "' ipmac='" + s + i + "'  onclick='sendprivatemail(this);'>  <td class='clumn1'> </td><td class='clumn2'>" + t + "</td><td class='clumn3'>" + r + "</td><td class='clumn4'>" + Math.trunc(((new Date).getTime() - parseInt(b)) / 6e4) + "</td><td class='looking'>" + i + "</td><td class='email_clients'>" + e + "</td></tr>") : $("#tbl_visitor tbody").append("  <tr disble_chat class='" + c + " " + n + "' ipmac='" + s + i + "'  onclick='sendprivatemail(this);'>  <td class='clumn1'> </td><td class='clumn2'>" + t + "</td><td class='clumn3'>" + r + "</td><td class='clumn4'>" + Math.trunc(((new Date).getTime() - parseInt(b)) / 6e4) + "</td><td class='looking'>" + i + "</td><td class='email_clients'>" + e + "</td></tr>"), $("#tbl_visitor tbody").append("<script>var interval = setInterval(function() {  var minutes =parseInt($('." + c + " .clumn4').text().trim());minutes += 1;$('." + c + " .clumn4').html(minutes );}, 60000);<\/script>"), 0 != $(".message_welcome > div").size()) for (var m = 0; m < $(".message_welcome > div").size() ; m++) { if ($(".message_welcome > div").eq(m).attr("ipmac") == "tab_web" + s + i) { $(".message_welcome > div").eq(m).addClass("tab_web" + n), $(".chat_botton > li ").eq(m).find("a").addClass("ab_web" + n); break } m + 1 == $(".message_welcome > div").size() && (emailagent == o || null == o ? $(".message_welcome").append("<div class='messagechatbox tab_web" + c + " tab_web" + n + "' ipmac='tab_web" + s + i + "'></div>") : $(".message_welcome").append("<div class='messagechatbox tab_web" + c + " tab_web" + n + " disble_chat' ipmac='tab_web" + s + i + "'></div>")) } else emailagent == o || null == o ? $(".message_welcome").append("<div class='messagechatbox tab_web" + c + " tab_web" + n + "' ipmac='tab_web" + s + i + "'></div>") : $(".message_welcome").append("<div class='messagechatbox tab_web" + c + " tab_web" + n + " disble_chat' ipmac='tab_web" + s + i + "'></div>"); countclient++, $(".count_active").html("(" + countclient + ")") } else $("." + c).addClass(n), $(".tab_web" + c).addClass("tab_web" + n), $(".ab_web" + c).addClass("ab_web" + n); try { $(".ab_web" + n + " .botton_online").css("color", "green"), $(".ab_web" + n).parent().show() } catch (t) { } }, t.client.clientoffline = function (t) { if ($("." + t).attr("class").trim().split(" ").length > 2) $("." + t).removeClass(t); else { 0 != $(".ab_web" + t).length && countrequest > 0 && countrequest--, $("." + t).remove(), countclient--, $(".count_active").html("(" + countclient + ")"), $(".count_request_chat").html("(" + countrequest + ")"); try { $(".ab_web" + t + " .botton_online").css("color", "#a4a4a4") } catch (t) { } } try { $(".tab_web" + t).removeClass("tab_web" + t) } catch (t) { } try { $(".ab_web" + t).removeClass("ab_web" + t) } catch (t) { } }, t.client.updatecountonline = function (t) { }, t.client.disconnectsameagnt = function () { alert("tài khoản đã được đăng nhập từ nơi khác"), $.connection.hub.stop() }, t.client.broadcastMessage = function (t, e, a) { new Audio("/Content/Sound/Sound.mp3").play(), $(".ab_web" + t).text().trim() != e.trim() && ($(".ab_web" + t).html(e + "<i class='fa fa-circle botton_online' aria-hidden='true'></i>"), $("." + t + " .clumn2").html(e)); try { 0 == $(".tab_web" + t + " > div:last-child ").length && $(".tab_web" + t).append('<div class="border textchatleft"><p class="namechatspan namerely" style="color:#294358;">' + e + " </p></div>"), -1 != $(".tab_web" + t + " > div:last-child ").attr("class").indexOf("textchatright") && $(".tab_web" + t).append('<div class="border textchatleft"><p class="namechatspan namerely" style="color:#294358;">' + e + " </p></div>") } catch (t) { } $(".tab_web" + t).append('<div class="border textchatleft"><p class="namechatspan" style="color:#294358;">' + a + " </p></div>"); for (var s = $("." + t).attr("class").trim().split(" "), i = "", c = 0; c < s.length; c++) i += "ab_web" + s[c] + " "; if (0 != $(".chat_botton > li").size()) for (c = 0; c < $(".chat_botton > li").size() ; c++) { if ($(".chat_botton > li a").eq(c).attr("ipbot") == $(".tab_web" + t).attr("ipmac") + "bot") { $(".tab_web" + t).hasClass("disble_chat") && $(".chat_botton > li").eq(c).addClass("disble_chat_bot"), $(".chat_botton > li").eq(c).addClass("announce_new_mess"), $(".chat_botton > li").eq(c).show(), "0" == $(".chat_botton > li a").eq(c).attr("checkrq") && (countrequest++, $(".chat_botton > li a").eq(c).attr("checkrq", "1")); break } c + 1 == $(".chat_botton > li").size() && ($(".chat_botton").append("<li class='openchat_windows announce_new_mess'><a class='" + i.trim() + "' onClick='opentabchatwin(this); remove_announce();' ipbot='" + $(".tab_web" + t).attr("ipmac") + "bot'><span>" + e + "</span><i class='fa fa-circle botton_online' aria-hidden='true'></i></a><i class='fa fa-times close-button-chat' class='close_tab_bot' onclick='closetabbot(this);'></i></li>"), countrequest++) } else $(".tab_web" + t).hasClass("disble_chat") ? $(".chat_botton").append("<li class='openchat_windows announce_new_mess disble_chat_bot'><a class='" + i.trim() + "' onClick='opentabchatwin(this); remove_announce();' ipbot='" + $(".tab_web" + t).attr("ipmac") + "bot'><span>" + e + "</span><i class='fa fa-circle botton_online' aria-hidden='true'></i></a><i class='fa fa-times close-button-chat' class='close_tab_bot'onclick='closetabbot(this);'></i></li>") : $(".chat_botton").append("<li class='openchat_windows announce_new_mess'><a class='" + i.trim() + "' onClick='opentabchatwin(this); remove_announce();' ipbot='" + $(".tab_web" + t).attr("ipmac") + "bot'><span>" + e + "</span><i class='fa fa-circle botton_online' aria-hidden='true'></i></a><i class='fa fa-times close-button-chat' class='close_tab_bot'onclick='closetabbot(this);'></i></li>"), countrequest++; $(".count_request_chat").html("(" + countrequest + ")"); try { var n = $(".tab_chat_scoll .messagechatbox.active")[0].scrollHeight; $(".messagechatbox.active").scrollTop(n) } catch (t) { } }, t.client.alertagent = function (t, e) { if (0 == $(".allagents li").size()) $(".allagents").html("<li><a href='javascript:void(0);' idd='tab_agent' class='all_agents'>Tất cả agent</a> </li>"), $(".allagents").append("<li><a onclick='select_agent(this);' href='javascript:void(0);' idd='tab_agent" + e + "' class='all_agents tab_change" + t + "'>" + e + "</a> </li>"); else for (var a = 0; a < $(".allagents li").size() && $(".allagents li").eq(a).find("a").attr("idd") != "tab_agent" + e; a++) a + 1 == $(".allagents li").size() && $(".allagents").append("<li><a onclick='select_agent(this);' href='javascript:void(0);' idd='tab_agent" + e + "' class='all_agents tab_change" + t + "'>" + e + "</a> </li>") }, t.client.tranferagentclient = function (t, e, a, s) { notifyMe(t, e, a, s), $(".tab_web" + e + "bb").removeClass("disble_chat"), $(".ab_web" + e + "bb").parent().removeClass("disble_chat_bot"), $("." + e + "bb").removeAttr("disble_chat") }, t.client.massesameganet = function (t, e, a, s, i) { 0 == $("." + e + ".disble_chat").length && $("." + e).append("<div class='border textchatright'><p class='name_join_chat" + i + "' nameag='" + s + "' style='color:#294358; '><span class='spantextchat'>" + s + " đã tham gia phòng chát </span></p></div>"), $("." + e).addClass("disble_chat"); var c = e.replace("tab_web", ""); $(".ab_web" + c).parent().addClass("disble_chat_bot"), $("." + c).attr("disble_chat", ""), 0 != $("." + e + ".active").length && $("#tab_message").blur(); try { var n = $(".tab_chat_scoll .messagechatbox.active")[0].scrollHeight; $(".messagechatbox.active").scrollTop(n) } catch (t) { } }, t.client.agentoff = function (t, e, a) { $(".name_join_chat" + a).parent().parent().removeClass("disble_chat "); try { var s = $(".name_join_chat" + a).parent().parent().attr("class").trim().split(" ")[1].trim().replace("tab_web", ""); $("." + s).removeAttr("disble_chat"), $(".ab_web" + s).parent().removeClass("disble_chat_bot"), $(".name_join_chat" + a).parent().parent().append("<div class='border textchatright'><p class='name_join_chat' nameag='" + e + "' style='color:#294358; '><span class='spantextchat'>" + e + " đã tham rời phòng chát </span></p></div>") } catch (t) { } }, t.client.stophubs = function () { $.connection.hub.stop() }, $.connection.hub.start().done(function () { t.server.agentconnect(nameagent, emailagent, $.connection.hub.id, "@ViewBag.IDRoom"), $(".op-search").click(function () { "transfer" == $("#op-search :selected").val() && (t.server.getagentonline("@ViewBag.IDRoom", emailagent), $("#op-search").val("1")) }), $(".load_history").click(function () { var t = $(".messagechatbox.active").attr("class"); (t = (t = (t = t.replace("messagechatbox", "")).replace("active", "")).trim().split(" "))[0].replace("tab_web", "").trim(), $(".load_history").hide(); var e = t[0].replace("tab_web", "").trim(); !function (t) { var e = { IDvisitor: t }; $.ajax({ url: "/Home/LoadConvert", type: "GET", data: e, dataType: "json", success: function (t) { if (t.status) { var e = t.data, a = "", s = $("#data-template-History-line_cliend").html(), i = $("#data-template-History-line_agent").html(); $.each(e, function (t, e) { var c = new Date(parseInt(e.Date.replace("/Date(", "").replace(")/", ""), 10)), n = c.getMonth() + 1 + "/" + c.getDate() + "/" + c.getUTCFullYear() + " "; 1 == e.Actor ? a += Mustache.render(s, { NameActor: e.NameAgent, DateAction: n + HistoryController.format_time(c), textchatmsee: e.Line }) : a += Mustache.render(i, { NameActor: e.NameAgent, DateAction: n + HistoryController.format_time(c), textchatmsee: e.Line }) }), $(".messagechatbox.active").prepend(a); try { var c = $(".messagechatbox.active")[0].scrollHeight; $(".messagechatbox.active").scrollTop(c) } catch (t) { } HistoryController.registerEvent() } else bootbox.alert("Lỗi") } }) }(e = e.substring(0, e.length - 2)) }), $(".attac_smile_a").click(function () { $(".attac_smile_a").hasClass("active") ? $(".attac_smile_a").removeClass("active") : $(".attac_smile_a").addClass("active") }), $("#btntranfer").click(function () { try { var e = $(".all_agents.active").attr("idd").trim().replace("tab_agent", ""), a = $(".messagechatbox.active").attr("class").trim().split(" ")[1].trim().replace("tab_web", ""), s = $("." + a + " .clumn2").text().trim(), i = $("#tranfer_messenger").val(); $("#tranfer_messenger").val(""), $("#tranfer_messenger").focus(), t.server.tranferagent(e, a, i, s), $("#b-tranfer").hide(), $(".tab_chatwin").hide() } catch (t) { } }), $(".list_icon > div ").click(function () { var e = $(".messagechatbox.active").attr("class"); e = (e = (e = e.replace("messagechatbox", "")).replace("active", "")).trim().split(" "), $(".messagechatbox.active").append('<div class="border textchatright"><p namesg=""  style="color:#294358; "><span class="spantextchat">' + $(this).html().trim() + "</span></p></div>"); try { var a = $(".tab_web_chat_scoll .messagechatbox.active")[0].scrollHeight; $(".messagechatbox.active").scrollTop(a) } catch (t) { } t.server.messagent(e[0].replace("tab_web", "").trim(), nameagent, $(this).html().trim(), IDagent, "@ViewBag.IDRoom", emailagent) }), $("#file-input").on("change", function () { var e = this.files; if (e && e[0]) if (this.files[0].name.match(/\.(jpg|jpeg|png|pdf|docx|gif)$/)) { if (0 != (e = $("#file-input").get(0).files).length) { var a = new FormData; a.append("ImageFile", e[0]), $.ajax({ type: "Post", url: "/Home/UploadFileVisitor", data: a, contentType: !1, processData: !1, success: function (e) { if (0 == e.stt) bootbox.alert("Lỗi up file"); else { var a = $(".messagechatbox.active").attr("class"); a = (a = (a = a.replace("messagechatbox", "")).replace("active", "")).trim().split(" "), $(".messagechatbox.active").append('<div class="border textchatright"><p namesg=""  style="color:#294358; "><span class="spantextchat">' + e.LinkFile + "</span></p></div>"); try { var s = $(".tab_chat_scoll .messagechatbox.active")[0].scrollHeight; $(".messagechatbox.active").scrollTop(s) } catch (t) { } t.server.messagent(a[0].replace("tab_web", "").trim(), nameagent, e.LinkFile, IDagent, "@ViewBag.IDRoom", emailagent) } } }) } } else bootbox.alert("Định dạng not support"), $("#file-input").val(null) }), $(".tab_messagelog textarea").keydown(function (e) { if (13 == e.keyCode && !e.shiftKey) { $(".disable_select").removeAttr("disabled"), $(".disable_select").removeClass("disable_select"); var a = $(".messagechatbox.active").attr("class"); a = (a = (a = a.replace("messagechatbox", "")).replace("active", "")).trim().split(" "); var s = $("#tab_message").val().replace(/\r?\n/g, "<br />"); if (0 != $("#tab_message").val().trim().length) { $(".messagechatbox.active").append('<div class="border textchatright"><p namesg="' + nameagent + '"  style="color:#294358; "><span class="spantextchat">' + s + "</span></p></div>"); try { var i = $(".tab_chat_scoll .messagechatbox.active")[0].scrollHeight; $(".messagechatbox.active").scrollTop(i) } catch (t) { } t.server.messagent(a[0].replace("tab_web", "").trim(), nameagent, s, IDagent, "@ViewBag.IDRoom", emailagent) } remove_announce(), $("#tab_message").val("").focus(), e.preventDefault() } }) }) } function notifyMe(t, e, a, s) { if ("Notification" in window) if ("granted" === Notification.permission) { var i = { body: a }, c = new Notification("yc chat:" + s, i); console.log(c) } else "denied" !== Notification.permission && Notification.requestPermission(function (t) { if ("permission" in Notification || (Notification.permission = t), "granted" === t) { var e = { body: a }; new Notification(s, e) } }); else alert("This browser does not support desktop notification") } function opentabchatwin(t) { $(".tab_chatwin").show(); try { $(".messagechatbox").removeClass("active") } catch (t) { } for (var e = $(t).attr("class").toString().trim().split(" "), a = "", s = "", i = 0; i < e.length; i++) a += ".t" + e[i], s += "." + e[i].replace("ab_web", ""); $("#editname").html($(s).find(".clumn2").text().trim()), $("#editemail").html($(s).find(".email_clients").text().trim()), $("#looking_title > a").html($(s).find(".looking").text().trim()), $("#looking_title > a").attr("href", "http://" + $(s).find(".looking").text().trim()), $("#ip_visitor").html($(s).find(".clumn3").text().trim()), $(".time-clumn p").eq(1).html($(s).find(".clumn4").text().trim() + " m"), $(a).addClass("active") } function sendprivatemail(t) { $("#editname").html($(t).find(".clumn2").text().trim()), $("#editemail").html($(t).find(".email_clients").text().trim()), $("#looking_title > a").html($(t).find(".looking").text().trim()), $("#looking_title > a").attr("href", "http://" + $(t).find(".looking").text().trim()), $("#ip_visitor").html($(t).find(".clumn3").text().trim()), $(".time-clumn p").eq(1).html($(t).find(".clumn4").text().trim() + " m"); try { $(".messagechatbox").removeClass("active") } catch (t) { } for (var e = $(t).attr("class").toString().trim().split(" "), a = $(t).attr("ipmac").toString().trim(), s = "ab_web" + $(t).attr("class").toString().trim().split(" ")[0].trim(), i = "", c = "", n = "", l = "", o = 1; o < e.length; o++) i += ".tab_web" + e[o].trim(), c += "ab_web" + e[o].trim() + " ", n += ".ab_web" + e[o].trim(), l += "." + e[o].trim(); 0 == $(n).length && $(".chat_botton").append("<li class='openchat_windows'><a checkrq='0' class='" + s + " " + c.trim() + "' onClick='opentabchatwin(this);remove_announce();' ipbot='tab_web" + a + "bot'>" + $(l + " .clumn2").text() + "<i class='fa fa-circle botton_online' aria-hidden='true'></i></a><i class='fa fa-times close-button-chat' class='close_tab_bot'onclick='closetabbot(this);'></i></li>"), $(i).addClass("active"), $(".tab_chatwin").show(), $(".load_history").show() } function remove_announce() { try { var t = $(".messagechatbox.active").attr("class"); t = (t = (t = t.replace("messagechatbox", "")).replace("active", "")).trim().split(" "); for (var e = "", a = 1; a < t.length; a++) 0 != t[a].trim().length && (e += "." + t[a].replace("tab_web", "ab_web")); try { $(e).parent().removeClass("announce_new_mess") } catch (t) { } } catch (t) { } } function closetabbot(t) { $(t).parent().hide() } function change_action(t) { "transfer" == $(t).val() && $("#b-tranfer").show() } function hide_tranfer() { $("#b-tranfer").hide() } function select_agent(t) { $(".allagents li a").removeClass("active"), $(t).addClass("active") } var emailagent = "@ViewBag.email", nameagent = "@ViewBag.UserName", IDagent = "@ViewBag.AgentID", countclient = 0, countrequest = 0, currentconver = ""; startChartHub();</script>
+    <div class="tab_chatwin">
+        <div class="tab_chatwin_head">
+            <div class="tab_chat_close"><i class="fa fa-times" aria-hidden="true"></i></div>
+       
+        </div>
+        <select class="op-search disable_select" id="op-search" name="change_action" disabled="disabled" onchange="change_action(this)">
+            <option value="1">-- Chọn hành động --</option>
+            <option value="transfer">Chuyển chat</option>
+            @*<option value="end_chat">Kết thúc trò chuyện</option>
+            <option value="block"> Chặn visitor</option>*@
+        </select>
+        <div id="b-tranfer" style="display: none;">
+            <ul>
+                <li>
+                    <div class="tranfer-left">&nbsp;</div>
+                    <div class="tranfer-right">
+                        <span class="title">Chuyển cuộc chat tới Agent khác</span>
+                    </div>
+                </li>
+                <li>
+                    <div class="tranfer-left">
+                        Agent sẵn sàng
+                    </div>
+                    <div class="tranfer-right">
+                        <div class="slimScrollDiv" style="position: relative; height: 190px;">
+                            <ul class="allagents" style="overflow: hidden; height: 150px;overflow-y:auto; top:-20px"></ul><div class="slimScrollBar ui-draggable" style="background: rgb(0, 0, 0); width: 7px; position: absolute; top: 0px; opacity: 0.4; display: none; border-radius: 7px; z-index: 99; right: 1px; height: 192.021px;"></div><div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; background: rgb(51, 51, 51); opacity: 0.2; z-index: 90; right: 1px;"></div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="tranfer-left">
+                        Tin nhắn
+                    </div>
+                    <div class="tranfer-right">
+                        <textarea rows="3" id="tranfer_messenger" placeholder="Tin nhắn gửi tới agent" style="width:88%;top:-32px;position:relative;"></textarea>
+                    </div>
+                </li>
+                <li>
+                    <div class="tranfer-left">&nbsp;</div>
+                    <div class="tranfer-right">
+                        <a href="#" class="btn btnsubmit" id="btntranfer">Chuyển</a>
+                        <a href="#" class="btn btncancel" onclick="hide_tranfer()">Hủy bỏ</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="tab_chatwin_body">
+            <div class="tab_chatwin_right">
+
+                <div class="top-visitor-info">
+                    <div class="avatar_chat_default" style="display:none;">https://www.gravatar.com/avatar/7b3724fa2f46779f5750486919efed48.jpg?s=68&amp;d=https://www.gravatar.com/avatar/d41d8cd98f00b204e9800998ecf8427e.jpg?s=68&amp;d=https%3A%2F%2Fwidget-css.subiz.com%2Fv3%2Fimg%2Favatar-chat.png</div>
+                    <img src="https://www.gravatar.com/avatar/7b3724fa2f46779f5750486919efed48.jpg?s=68&amp;d=https://www.gravatar.com/avatar/d41d8cd98f00b204e9800998ecf8427e.jpg?s=68&amp;d=https%3A%2F%2Fwidget-css.subiz.com%2Fv3%2Fimg%2Favatar-chat.png" class="avatar" alt="">
+                    <div class="visitorname">
+                        <div class="lineinfo">
+                            <div class="name_show editname"><div id="editname">dsad</div></div>
+                        </div>
+                        <div class="lineinfo">
+                            <div class="email_show editemail"><div id="editemail" style="font-weight: normal;color: black;">asdas@gmaiul.com</div></div>
+                        </div>
+                        <div class="lineinfo">
+                            <div class="phone_show editphone" id="editphone">Visitor phone</div>
+                        </div>
+                    </div>
+                </div>
+                <div id="visitortab" class="ui-tabs ui-widget ui-widget-content ui-corner-all">
+                    <div class="slimScrollDiv" style="position: relative; width: auto; height: 255px;">
+                        <div id="infovisitor-tab1" class="infortab ui-tabs-panel ui-widget-content ui-corner-bottom" aria-labelledby="ui-id-17" role="tabpanel" aria-expanded="true" aria-hidden="false" style="overflow: hidden; width: auto; height: 240px;">
+                            <div class="time-clumn" id="time_onsite">
+                                <p>Thời gian trên website</p>
+                                <p style=" width 16%;display inline-block;"><strong>37m</strong></p>
+
+                            </div>
+
+                            @*<div class="rows-c" id="location_visitor">Location:  Hanoi, Vietnam</div>
+                                <div class="rows-c">
+                                    <div id="label_visitor" style="width: 265px;overflow: hidden;max-height: 18px;">
+                                        <div id="label_visitor" style="width: 265px;overflow: hidden;max-height: 18px;">
+
+                                        </div>
+                                    </div>
+                                </div>*@
+                            <div class="rows-c" id="looking_title">
+                                Đang xem:
+
+                                <a class="" href="http://localhost:51368/Home/Index" title="" target="_blank">
+
+                                    http://localhost:51368/Home/Index
+
+                                </a>
+
+                            </div>
+                            <div class="rows-c">
+
+                            </div>
+
+                            <div class="rows-c" id="ip_visitor">IP: 1.53.144.3</div>
+                            @*<div class="rows-c" id="ua_visitor">
+                                    <span class="browser_visitor">Browser: CocCoc, version: 66.4</span>
+                                    <br>
+                                    <span class="os_visitor rows-c">OS: Windows 8</span>
+                                </div>*@
+                        </div><div class="slimScrollBar ui-draggable" style="background: rgb(0, 0, 0); width: 7px; position: absolute; top: 0px; opacity: 0.4; display: none; border-radius: 7px; z-index: 99; right: 1px; height: 267px;"></div><div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; background: rgb(51, 51, 51); opacity: 0.2; z-index: 90; right: 1px;"></div>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="tab_chatwin_left">
+                <div class="tab_chat_scoll">
+                    <div class='message_welcome'>
+                    </div>
+                    <div class="send_service">
+                        <div id="attach_file_a">
+
+                            <label for="file-input" class="input-label">
+                                <i class="fa fa-paperclip" aria-hidden="true" style="margin-left:10px;cursor:pointer"></i>
+                                <input type="file" id="file-input" accept="jpg gif jpeg png bmp docx pdf">
+                            </label>
+                        </div>
+                        <div class="attac_smile_a">
+                            <i class="fa fa-smile-o" aria-hidden="true"></i>
+                            <div class="list_icon">
+                                <div class="icon_smile_1"><img src="/Content/iconchat/adore.gif"></div>
+                                <div class="icon_smile_2"> <img src="/Content/iconchat/choler.gif"></div>
+                                <div class="icon_smile_3">
+                                    <img src="/Content/iconchat/Confused.gif">
+                                </div>
+                                <div class="icon_smile_4">
+                                    <img src="/Content/iconchat/cry.gif">
+                                </div>
+                                <div class="icon_smile_5">
+                                    <img src="/Content/iconchat/feel_good.gif">
+                                </div>
+                                <div class="icon_smile_6">
+                                    <img src="/Content/iconchat/oh.gif">
+                                </div>
+                                <div class="icon_smile_7">
+                                    <img src="/Content/iconchat/ops.gif">
+                                </div>
+                                <div class="icon_smile_8">
+                                    <img src="/Content/iconchat/Shoked.gif">
+                                </div>
+                                <div class="icon_smile_9">
+                                    <img src="/Content/iconchat/still_dreaming.gif">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="load_history">
+                            <a href="javascript:void(0)"> Previous chat</a>
+                        </div>
+                    </div>
+                    <div id='tab_chatarea'>
+                        <div class='tab_messagelog'>
+                            <textarea spellcheck='true' id='tab_message' class='tab_messagebox' onclick="remove_announce();" oninput=""></textarea>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <section class="chat-compressed">
+        <ul class="chat_botton"></ul>
+    </section>
+    <script>
+        $('.tab_chat_close').click(function () {
+            $('.tab_chatwin').hide();
+            $('.message_welcome div').removeClass('active');
+
+        })
+    </script>
+
+}

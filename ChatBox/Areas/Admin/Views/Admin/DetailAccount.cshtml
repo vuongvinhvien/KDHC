@@ -1,0 +1,62 @@
+﻿@model Store.Data.DataDbContext.AspNetUser
+
+@{
+    ViewBag.Title = "DetailAccount";
+    Layout = "~/Areas/Admin/Views/Shared/HomeAdmin.cshtml";
+}
+
+
+<h4 class="text-left">Chi tiết tài khoảng</h4>
+<hr />
+<div>
+  
+    <div class="form-horizontal">
+        
+        <div class="form-group">
+           
+            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2 col-sm-3 col-xs-12" })
+            <div class="col-md-10 col-sm-9 col-xs-12">
+                <span class="form-control" readonly>@Html.DisplayFor(model => model.Email)</span>
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.EmailConfirmed, htmlAttributes: new { @class = "control-label col-md-2 col-sm-3 col-xs-12" })
+            <div class="col-md-10 col-sm-9 col-xs-12">
+                @Html.DisplayFor(model => model.EmailConfirmed)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-2 col-sm-3 col-xs-12" })
+            <div class="col-md-10 col-sm-9 col-xs-12">
+                <span class="form-control" readonly>@Html.DisplayFor(model => model.UserName)</span>   
+               
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.ID_Customer, htmlAttributes: new { @class = "control-label col-md-2 col-sm-3 col-xs-12" })
+            <div class="col-md-10 col-sm-9 col-xs-12">
+              <span class="form-control" readonly>@Html.DisplayFor(model => model.ID_Customer)</span>   
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Avartar, htmlAttributes: new { @class = "control-label col-md-2 col-sm-3 col-xs-12" })
+            <div class="col-md-10 col-sm-9 col-xs-12">
+                @Html.DisplayFor(model => model.Avartar)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.status, htmlAttributes: new { @class = "control-label col-md-2 col-sm-3 col-xs-12" })
+            <div class="col-md-10 col-sm-9 col-xs-12">
+                <span class="form-control" readonly>@Model.status</span>   
+             
+            </div>
+        </div>
+
+
+    </div>
+
+</div>
+<p class="text-left">
+
+    @Html.ActionLink("Trở lại danh sách", "AccountList")
+</p>

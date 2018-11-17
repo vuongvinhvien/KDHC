@@ -1,0 +1,164 @@
+﻿@model IEnumerable<Store.Data.DataDbContext.AspNetUser>
+    @using Store.Web.Infrastructure.ExtensionMethod
+@{
+    Layout = null;
+}
+<div class="tab-it" id="tab-agent" style="display: block;">
+    <article id="main">
+        <ul class="a-d-tab">
+            <li>
+                <a class="tab-active list_agents" href="javascript:void(0)">Số Agent @Model.Count()</a>
+            </li>
+        </ul>
+        <section id="agents">
+            <div class="agentleft">
+                @if (@ViewBag.TypeAccount == true)
+                {
+                    <div class="col-md-12 add_button">
+                        <div class="text-center">
+                            <button type="button" id="AddAgent" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Thêm Agent</button>
+                        </div>
+                    </div>
+                }
+                <div class="search-agent">
+                    <input type="text" class="form-control" id="search_agent_" onkeyup="homeController.SearchAgent()" placeholder="Tìm kiếm agent" name="">
+                </div>
+                <div class="slimScrollDiv" style="position: relative; width: auto; height: 375px;">
+
+                    <ul class="listagents" style="overflow: hidden; width: auto; height: 375px;">
+                        @foreach (var Agent in Model)
+                        {
+                            <li class="online list_agent_ajax" idAgent="@Agent.Id" title="@Agent.UserName.Split('@')[0].Truncate(20)">
+                                <a href="javascript:void(0);" class="agent_infor current" username="cluetinkerton123">
+                                    <i class="iconstatus imgagents"></i>
+                                    <span class="agentname">@Agent.UserName.Split('@')[0].ToString().Truncate(20)</span>
+                                    <input type="hidden" value="@Agent.Email.Truncate(20)" name="email_agent">
+                                    @if (Agent.Avartar == null)
+                                    {
+                                        <img alt="" class="avatar" widt="34px" height="34px" src="~/img/Home/avatar-chat.png">
+                                    }
+                                    else
+                                    {
+                                        <img alt="" class="avatar" widt="34px" height="34px" src="/UploadedImageAvartar/@Agent.Avartar">
+                                    }
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                    <div class="slimScrollBar ui-draggable" style="background: rgb(0, 0, 0); width: 7px; position: absolute; top: 0px; opacity: 0.4; display: none; border-radius: 7px; z-index: 99; right: 1px; height: 375px;"></div>
+                    <div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; background: rgb(51, 51, 51); opacity: 0.2; z-index: 90; right: 1px;"></div>
+                </div>
+            </div>
+            <div class="agentright" id="agent_right">
+                @if (@ViewBag.TypeAccount == true)
+                {
+                    <div class="btn btnexport edit_info_agent" id="edit_info_agent" >
+                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>  <b class="imgagents">Sửa</b>
+                    </div>
+                    <a href="javascript:void(0);" class="btn btnexport edit_info_agent" id="Delete_info_agent" >
+                        <i class="fa fa-trash" aria-hidden="true"></i> <b class="imgagents">Xóa</b>
+                    </a>
+                }
+                <ul class="agent-info">
+                    <li class="top">
+                        <div class="rightclumn">
+                            <div class="avatar-agent" id="avartar_info_agent_">
+                                <img src="~/img/Home/avatar-chat.png">
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="leftclumn">Email</div>
+                        <div class="rightclumn" id="email_info_agent_">@Model.First().Email</div>
+                    </li>
+                    <li>
+                        <div class="leftclumn">Lần đăng nhập cuối</div>
+                        <div class="rightclumn" id="time_info_agent_">@ViewBag.Time</div>
+                    </li>
+                    <li>
+                        <div class="leftclumn">Loại</div>
+                        <div class="rightclumn" id="typeaccount_info_agent_">Administrator</div>
+                    </li>
+                    <li class="end">
+                        <div class="leftclumn">7 ngày vừa qua</div>
+                        <div class="rightclumn">
+                            <div class="circle">
+                                <a><i class="fa fa-comments" aria-hidden="true"></i></a>
+                                <span class="number-cmm" id="s_total_chat">@ViewBag.CoutConver</span>
+                            </div>
+                         
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </section>
+    </article>
+</div>
+@if (@ViewBag.TypeAccount == true)
+{
+    <div>
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel">Thêm Agent</h4>
+                    </div>
+                    <div class="modal-body" id="frmEmp">
+                        @RenderPage("FormAgentRegister.cshtml")
+                    </div>
+                    <div class="modal-footer">
+
+                        <button type="submit" class="btn btn-primary" id="btnSave">Save</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@if (@ViewBag.TypeAccount == true)
+{
+    <div>
+        <div class="modal fade" id="myModaledit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel">Sửa Agent</h4>
+                    </div>
+                    <div class="modal-body" id="frmEmp">
+
+                        <div class="col-md-12" id="uploadedImage">
+
+                        </div>
+
+                        @RenderPage("FormAgentRegisterEdit.cshtml")
+                    </div>
+                    <div class="modal-footer">
+
+                        <button type="submit" class="btn btn-primary" id="btnSaveEdit">Save</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<script id="data-template" type="x-tmpl-mustache">
+    <li class="online list_agent_ajax" idAgent="{{ID}}" title="{{UserName}}">
+        <a href="javascript:void(0);" class="agent_infor current" username="cluetinkerton123">
+            <i class="iconstatus imgagents"></i>
+            <span class="agentname">{{UserName}}</span>
+            <input type="hidden" value="{{Email}}" name="email_agent">
+            <img alt="" class="avatar" widt="34px" height="34px" src="{{Avartar}}">
+        </a>
+    </li>
+</script>
+

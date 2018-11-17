@@ -1,0 +1,92 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-signin-client_id" content="874461347984-otcjoiel3uau1h31lp786p2sqqtqfdj1.apps.googleusercontent.com">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <link href="~/Content/Chatcss.css" rel="stylesheet" />
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+<body>
+
+    @RenderBody()
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("hubstar", required: false)
+    @RenderSection("scripts", required: false)
+
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script type="text/javascript">
+        function onSignIn(googleUser) {
+            try {
+                var profile = googleUser.getBasicProfile();
+                $('#v_name_contact').val(profile.getName());
+                $('#v_email_contact').val(profile.getEmail());
+            } catch (er) { }
+        }
+        function RegisterAjaxEvents() {
+            try {
+                $.validator.unobtrusive.parse('form');
+            } catch (er) { }
+        }
+    </script>
+    <script>  
+        function statusChangeCallback(response) {
+            try {
+            console.log('statusChangeCallback');
+            console.log(response);
+           if (response.status === 'connected') {          
+                testAPI();
+            } else {
+                document.getElementById('status').innerHTML = 'Please log ' +
+                  'into this app.';
+           }
+            } catch (er) { }
+        }
+        function checkLoginState() {
+            try {
+            FB.getLoginStatus(function (response) {
+                statusChangeCallback(response);
+            });
+            } catch (er) { }
+        }
+        window.fbAsyncInit = function () {
+            try {
+            FB.init({
+                appId: '1275640355887289',
+                cookie: true,        
+                xfbml: true,  
+                version: 'v2.8'
+            });
+            FB.getLoginStatus(function (response) {
+                statusChangeCallback(response);
+            });
+            } catch (er) { }
+        };
+        (function (d, s, id) {
+            try {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+            } catch (er) { }
+        }(document, 'script', 'facebook-jssdk'));
+        function testAPI() {
+            try {
+            $('#option_contact_form').show();
+            $('#option_contact_details').hide();
+            console.log('Welcome!  Fetching your information.... ');
+            FB.api('/me', function (response) {
+                $('#v_name_contact').val(response.name);
+                $('#v_email_contact').val(response.email);
+            });
+        } catch (er) { }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,106 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title </title>
+    
+  
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/Admin.css" rel="stylesheet" />
+</head>
+<body class="nav-md body" style="height:100%">    
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    @Html.Partial("_LoginPartialAdmin")
+                </div>
+                </div>
+                <div class="col-md-12 content_left">
+                    <div class="row">
+                        <div class="container-fluid top-component text-center">
+                            <a href="@Url.Action("AccountList", "Admin")" class="site_title"><span>TABWEB!</span></a>
+                        </div>
+                    </div>
+                    <div class="text-center">
+
+                        @RenderBody()
+
+                    </div>
+                </div>
+
+
+
+            </div>
+
+
+
+    @*<div class="container-fluid body">
+        <div class="main_container">
+            <div class="col-md-3 left_col menu_fixed">
+                <div class="left_col scroll-view">
+                    <div class="navbar nav_title" style="border: 0;">
+                       
+                    </div>
+                    <div class="clearfix"></div>
+                    <br />
+                    <!-- sidebar menu -->
+                    <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">               
+
+
+                        <div class="menu_section">
+                          
+                        </div>
+                    </div>
+                    <!-- /sidebar menu -->
+                    <!-- /menu footer buttons -->
+                    <div class="sidebar-footer hidden-small">
+                        <a data-toggle="tooltip" data-placement="top" title="Settings">
+                            <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+                        </a>
+                        <a data-toggle="tooltip" data-placement="top" title="FullScreen">
+                            <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
+                        </a>
+                        <a data-toggle="tooltip" data-placement="top" title="Lock">
+                            <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
+                        </a>
+                        <a data-toggle="tooltip" data-placement="top" title="Logout" href="@Url.Action("Logout", "Account", new { Area = "Admin" })">
+                            <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+                        </a>
+                    </div>
+                    <!-- /menu footer buttons -->
+                </div>
+            </div>
+            <!-- top navigation -->
+     
+            <!-- /top navigation -->
+            <!-- page content -->
+     
+            <div class="col-md-9">
+                @RenderBody()
+            </div>
+            <!-- /page content -->
+            <!-- footer content -->
+            <footer>
+                <div class="pull-right">
+                    TABWEB - <a href="http://honrang.com/">Powered by HON RANG.</a>
+                </div>
+                <div class="clearfix"></div>
+            </footer>
+            <!-- /footer content -->
+        </div>
+    </div>*@
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/jqueryval")
+    @RenderSection("Scripts", false)
+</body>
+
+
+</html>

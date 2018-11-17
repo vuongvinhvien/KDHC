@@ -1,0 +1,74 @@
+﻿@*@model ChatBox.Models.RegisterViewModel
+
+@using (Html.BeginForm()) 
+{
+
+    
+    <div class="form-horizontal">
+     
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ConfirmPassword, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+     
+    </div>
+}*@
+<form role="form" id="EditAgent">
+    <div class="form-group">
+        <label for="txtName">Email:</label>
+        <input type="text" class="form-control" name="EmailEdit" id="EmailEdit">
+        <input type="hidden" id="hidID" value="0" />
+    </div>
+    <div class="form-group">
+        <label for="txtName">Mật khẩu mới</label>
+        <input type="password" class="form-control" name="PasswordEdit" id="PasswordEdit">
+        <input type="hidden" id="hidID" value="0" />
+    </div>
+    <div class="form-group">
+        <label for="txtName">Xác nhận mật khẩu:</label>
+        <input type="password" class="form-control" name="ConfirmPasswordEdit" id="ConfirmPasswordEdit">
+        <input type="hidden" id="hidID" value="0" />
+    </div>
+    <div class="form-group">
+        <label for="txtName">Chọn hình đại diện</label>
+        <input type="file" class="form-control" name="Avartar" id="Avartar_Edit">
+        <input type="hidden" id="hidID" value="0" />
+        <div id="imgPreview" class="thumbnail" style="display:none">
+            <img class="img-responsive" id="targetImg" />
+            <div class="caption">
+                <div class="row">
+                    <div class="col-md-12">
+                        <a href="#" onclick="homeController.ClearPreview()"><i class="glyphicon glyphicon-trash"></i></a>
+                        <span id="description"></span>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+     
+            <div class="col-md-12 thumbnail" id="uploadedImage" style="display:none"></div>
+
+    </div>
+</form>
