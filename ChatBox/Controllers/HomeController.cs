@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using ChatBox.Models;
+using SMEQ.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
@@ -17,7 +17,7 @@ using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using static Store.Web.Infrastructure.ExtensionMethod.CustomAuthorize;
 
-namespace ChatBox.Controllers
+namespace SMEQ.Controllers
 {
     [CustomAuthorize(Roles = "User")]
     public class HomeController : Controller

@@ -16,7 +16,7 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 
-namespace ChatBox
+namespace SMEQ
 {
     public class MvcApplication : System.Web.HttpApplication
     {
@@ -47,7 +47,7 @@ namespace ChatBox
             builder.Register(
          c => new MapperConfiguration(cfg =>
          {
-             cfg.AddProfile(new ChatBox.Mapping.Mapping());
+             cfg.AddProfile(new SMEQ.Mapping.Mapping());
              
          }))
          .AsSelf()

@@ -10,12 +10,12 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
-using ChatBox.Models;
+using SMEQ.Models;
 using System.Configuration;
 using System.Net.Mail;
 using System.Net;
 
-namespace ChatBox
+namespace SMEQ
 {
     public class EmailService : IIdentityMessageService
     {

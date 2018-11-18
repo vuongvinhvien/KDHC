@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace ChatBox.Areas.Admin
+namespace SMEQ.Areas.Admin
 {
     public class AdminAreaRegistration : AreaRegistration 
     {

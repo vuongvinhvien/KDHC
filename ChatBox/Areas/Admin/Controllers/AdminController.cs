@@ -6,10 +6,10 @@ using System.Web;
 using System.Web.Mvc;
 using AutoMapper;
 using Store.Data.DataDbContext;
-using ChatBox.Areas.Admin.Models;
+using SMEQ.Areas.Admin.Models;
 using Store.Web.Infrastructure.ExtensionMethod;
 
-namespace ChatBox.Areas.Admin.Controllers
+namespace SMEQ.Areas.Admin.Controllers
 {
  
     [CustomAuthorize(Roles = "Superusers")]

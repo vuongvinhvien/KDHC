@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace ChatBox.Models
+namespace SMEQ.Models
 {
     public class ExternalLoginConfirmationViewModel
     {

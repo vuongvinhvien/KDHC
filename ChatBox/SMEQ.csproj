@@ -13,8 +13,8 @@
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ChatBox</RootNamespace>
-    <AssemblyName>ChatBox</AssemblyName>
+    <RootNamespace>SMEQ</RootNamespace>
+    <AssemblyName>SMEQ</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
@@ -227,6 +227,31 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Asset\css\AdminLTE.css" />
+    <Content Include="Asset\css\bootstrap-3.1.1-dist\css\bootstrap-theme.css" />
+    <Content Include="Asset\css\bootstrap-3.1.1-dist\css\bootstrap-theme.min.css" />
+    <Content Include="Asset\css\bootstrap-3.1.1-dist\css\bootstrap.css" />
+    <Content Include="Asset\css\bootstrap-3.1.1-dist\css\bootstrap.min.css" />
+    <Content Include="Asset\css\bootstrap-3.1.1-dist\css\dataTables.bootstrap.min.css" />
+    <Content Include="Asset\css\bootstrap-3.1.1-dist\css\skin-blue.min.css" />
+    <Content Include="Asset\css\bootstrap-3.1.1-dist\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Asset\css\chosen.min.css" />
+    <Content Include="Asset\css\font-awesome.min.css" />
+    <Content Include="Asset\css\Index.css" />
+    <Content Include="Asset\css\ionicons.min.css" />
+    <Content Include="Asset\css\jquery-ui.css" />
+    <Content Include="Asset\css\Register.css" />
+    <Content Include="Asset\script\adminlte.min.js" />
+    <Content Include="Asset\script\bootstrap.js" />
+    <Content Include="Asset\script\bootstrap.min.js" />
+    <Content Include="Asset\script\chosen.jquery.min.js" />
+    <Content Include="Asset\script\jquery-ui.min.js" />
+    <Content Include="Asset\script\jquery.min.js" />
+    <Content Include="Asset\script\SMEQ.js" />
+    <Content Include="Asset\skin\skin-blue.min.css" />
+    <Content Include="Asset\css\Trangchu.css" />
+    <Content Include="Asset\fonts\fontawesome-webfont.svg" />
+    <Content Include="Asset\img\user1-128x128.jpg" />
     <Content Include="Asset\Logo\SMEQvs4.png" />
     <Content Include="Content\Admin.css" />
     <Content Include="Content\admintabwebold.css" />
@@ -285,6 +310,17 @@
     <Content Include="Areas\Admin\Views\Admin\AccountEdit.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\DeleteAccount.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_LoginPartialAdmin.cshtml" />
+    <Content Include="Asset\css\bootstrap-3.1.1-dist\bootstrap" />
+    <Content Include="Asset\css\bootstrap-3.1.1-dist\css\bootstrap-theme.css.map" />
+    <Content Include="Asset\css\bootstrap-3.1.1-dist\css\bootstrap.css.map" />
+    <Content Include="Asset\css\bootstrap-3.1.1-dist\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Asset\css\bootstrap-3.1.1-dist\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Asset\css\bootstrap-3.1.1-dist\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Asset\fonts\fontawesome-webfont.eot" />
+    <Content Include="Asset\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Asset\fonts\fontawesome-webfont.woff" />
+    <Content Include="Asset\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Asset\fonts\FontAwesome.otf" />
     <None Include="Properties\PublishProfiles\ChatBox2525 - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\ChatBox2525 - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -401,7 +437,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>38307</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:38307/</IISUrl>
+          <IISUrl>http://localhost:38308/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

@@ -8,13 +8,13 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using ChatBox.Areas.Admin.Models;
+using SMEQ.Areas.Admin.Models;
 using Store.Sevices.Services;
 using System.Configuration;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Store.Web.Infrastructure.ExtensionMethod;
 
-namespace ChatBox.Areas.Admin.Controllers
+namespace SMEQ.Areas.Admin.Controllers
 {
 
     //[CustomAuthorize(Roles = "Superusers")]
@@ -192,7 +192,7 @@ namespace ChatBox.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ChatBox.Models.ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new SMEQ.Models.ApplicationUser { UserName = model.Email, Email = model.Email };
                 user.ID_Customer = _Customer.GetIDCustomerByUser(User.Identity.GetUserId());
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
@@ -214,7 +214,7 @@ namespace ChatBox.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ChatBox.Models.ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new SMEQ.Models.ApplicationUser { UserName = model.Email, Email = model.Email };
                 user.ID_Customer = Guid.NewGuid().ToString();
                 user.IsMain = true;
                 user.status = true;
@@ -449,7 +449,7 @@ namespace ChatBox.Areas.Admin.Controllers
                     {
 
                         // If the user get sucess email, then prompt the user to create an account
-                        var user2 = new ChatBox.Models.ApplicationUser { UserName = loginInfo.Email, Email = loginInfo.Email };
+                        var user2 = new SMEQ.Models.ApplicationUser { UserName = loginInfo.Email, Email = loginInfo.Email };
 
                         var resultCreate = await UserManager.CreateAsync(user2);
                         user2.ID_Customer = Guid.NewGuid().ToString();
@@ -497,7 +497,7 @@ namespace ChatBox.Areas.Admin.Controllers
 
 
 
-                var user = new ChatBox.Models.ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new SMEQ.Models.ApplicationUser { UserName = model.Email, Email = model.Email };
                 user.ID_Customer = Guid.NewGuid().ToString();
                 user.IsMain = true;
                 var result = await UserManager.CreateAsync(user);

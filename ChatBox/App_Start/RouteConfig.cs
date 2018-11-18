@@ -2,7 +2,7 @@
 using System.Web.Mvc;
 using System.Web.Routing;
 
-namespace ChatBox
+namespace SMEQ
 {
     public class RouteConfig
     {

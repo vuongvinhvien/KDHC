@@ -8,12 +8,12 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using ChatBox.Models;
+using SMEQ.Models;
 using Store.Sevices.Services;
 using System.Configuration;
 
 
-namespace ChatBox.Controllers
+namespace SMEQ.Controllers
 {
     [Authorize]
     public class AccountController : Controller

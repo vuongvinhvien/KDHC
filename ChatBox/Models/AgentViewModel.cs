@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace ChatBox.Models
+namespace SMEQ.Models
 {
     public class AgentViewModel
     {

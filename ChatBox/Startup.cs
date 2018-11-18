@@ -1,8 +1,8 @@
 ﻿using Microsoft.Owin;
 using Owin;
 
-[assembly: OwinStartupAttribute(typeof(ChatBox.Startup))]
-namespace ChatBox
+[assembly: OwinStartupAttribute(typeof(SMEQ.Startup))]
+namespace SMEQ
 {
     public partial class Startup
     {

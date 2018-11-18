@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using ChatBox.Models;
+using SMEQ.Models;
 using Store.Data.DataDbContext;
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Web;
 
 
 
-namespace ChatBox.Mapping
+namespace SMEQ.Mapping
 {
     public class Mapping : Profile
     { 
@@ -21,7 +21,7 @@ namespace ChatBox.Mapping
         {
 
             CreateMap<Customer, HistoryViewModel>();
-            CreateMap<AspNetUser, ChatBox.Areas.Admin.Models.ListAccoutViewModel>();
+            CreateMap<AspNetUser, SMEQ.Areas.Admin.Models.ListAccoutViewModel>();
             CreateMap<ChatLine, ChatLineViewModel>();
             CreateMap<AspNetUser, DetailAgentViewModel>();
         }

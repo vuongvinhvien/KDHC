@@ -5,58 +5,74 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div>
-    <a class="hiddenanchor" id="signin"></a>
-    <div class="login_wrapper">
-        <div class="animate form login_form">
-            <section class="login_content">
-                <section id="loginForm">
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title </title>
+    <link href="~/Content/tabwebold.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/admintabwebold.css" rel="stylesheet" />
+</head>
+<body class="login">
+    <div>
+        <a class="hiddenanchor" id="signin"></a>
+        <div class="login_wrapper">
+            <div class="animate form login_form">
+                <section class="login_content">
+                    <section id="loginForm">
 
 
-                    @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        <h4>Tạo tài khoảng mới</h4>
-                        <hr />
-                        @Html.ValidationSummary("", new { @class = "text-danger" })
-                        <div class="form-group">
-                          
-                            <div class="col-md-12">
-                                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @placeholder = Html.DisplayPlaceHolderFor(x => x.Email) })
+                        @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <h4>Tạo tài khoảng mới</h4>
+                            <hr />
+                            @Html.ValidationSummary("", new { @class = "text-danger" })
+                            <div class="form-group">
+
+                                <div class="col-md-12">
+                                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @placeholder = Html.DisplayPlaceHolderFor(x => x.Email) })
+                                </div>
                             </div>
+                            <div class="form-group">
+
+                                <div class="col-md-12">
+                                    @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = Html.DisplayPlaceHolderFor(x => x.Password) })
+                                </div>
+                            </div>
+                            <div class="form-group">
+
+                                <div class="col-md-12">
+                                    @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", @placeholder = Html.DisplayPlaceHolderFor(x => x.ConfirmPassword) })
+                                </div>
+                            </div>
+                            <div class="form-group">
+
+                                <div class="clearfix">
+                                    <input type="submit" class="btn btn-default submit" value="Đăng ký" />
+                                </div>
+                            </div>
+                        }
+                    </section>
+
+                    <div class="clearfix"></div>
+                    <div class="separator">
+                        <div>
+                            <i class="fa fa-paw"></i> TABWEB!
+                            <p>©2017 All Rights Reserved</p>
                         </div>
-                        <div class="form-group">
-                           
-                            <div class="col-md-12">
-                                @Html.PasswordFor(m => m.Password, new { @class = "form-control",@placeholder = Html.DisplayPlaceHolderFor(x=>x.Password) })
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            
-                            <div class="col-md-12">
-                                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", @placeholder = Html.DisplayPlaceHolderFor(x => x.ConfirmPassword) })
-                            </div>
-                        </div>
-                        <div class="form-group">
-                        
-                            <div class="clearfix">
-                                <input type="submit" class="btn btn-default submit" value="Đăng ký" />
-                            </div>
-                                               </div>
-                    }
-                </section>
-           
-                <div class="clearfix"></div>
-                <div class="separator">
-                    <div>
-                        <i class="fa fa-paw"></i> TABWEB!
-                        <p>©2017 All Rights Reserved</p>
                     </div>
-                </div>
-            </section>
+                </section>
+            </div>
         </div>
     </div>
-</div>
+</body>
+@RenderSection("Scripts", false)
+@Scripts.Render("~/bundles/jqueryval")
+
+</html>
 
 
 
@@ -64,6 +80,7 @@
 
 
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+
+
+
+

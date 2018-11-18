@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SEMQ", "ChatBox\SEMQ.csproj", "{36086151-5E7E-4555-9915-F098B7E23D32}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SMEQ", "ChatBox\SMEQ.csproj", "{36086151-5E7E-4555-9915-F098B7E23D32}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Store.Data", "Store.Data\Store.Data.csproj", "{828C52B5-E71E-41EF-913E-40CB025207E3}"
 EndProject

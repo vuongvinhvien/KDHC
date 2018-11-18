@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Mvc;
 
-namespace ChatBox
+namespace SMEQ
 {
     public class FilterConfig
     {
