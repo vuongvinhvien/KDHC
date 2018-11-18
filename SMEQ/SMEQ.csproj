@@ -394,7 +394,6 @@
     <Content Include="Views\Home\Setting.cshtml" />
     <Content Include="Views\Home\FormAgentRegister.cshtml" />
     <Content Include="Views\Home\FormAgentRegisterEdit.cshtml" />
-    <Content Include="Views\Shared\_Cu.cshtml" />
     <Content Include="Views\Account\NotifySendMail.cshtml" />
     <Content Include="Views\Shared\Die.cshtml" />
   </ItemGroup>
