@@ -40,6 +40,7 @@ namespace Store.Data.DataDbContext
 
         [StringLength(255)]
         public string value3 { get; set; }
+
         [StringLength(250)]
         public string value4 { get; set; }
     }

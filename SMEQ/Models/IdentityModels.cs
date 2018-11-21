@@ -29,7 +29,7 @@ namespace SMEQ.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("DataChatBox", throwIfV1Schema: false)
+            : base("DataChatBox4", throwIfV1Schema: false)
         {
         }
 
@@ -37,5 +37,6 @@ namespace SMEQ.Models
         {
             return new ApplicationDbContext();
         }
+
     }
 }

@@ -13,6 +13,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     @*<link rel="stylesheet" href="~/Content/bootstrap.min.css">*@
+    <!-- Css responsive  -->
+    <link href="https://cdn.datatables.net/responsive/2.1.1/css/responsive.bootstrap.min.css" rel="stylesheet" />
     <link href="~/Asset/css/bootstrap-3.1.1-dist/css/bootstrap.min.css" rel="stylesheet" />
     <!-- Font Awesome -->
     <link rel="stylesheet" href="~/Asset/css/font-awesome.min.css">
@@ -27,6 +29,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     <script src="~/Asset/script/jquery.min.js"></script>
 
+    <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap4.min.js "></script> 
+
     <link rel="stylesheet" href="~/Asset/css/Index.css">
     <script src="~/Asset/script/jquery-ui.min.js"></script>
     <script src="~/Asset/script/chosen.jquery.min.js"></script>
@@ -34,6 +39,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     <link rel="stylesheet" href="~/Asset/css/chosen.min.css">
     <link rel="shortcut icon" type="image/x-icon" href="~/Asset/Logo/SMEQvs4.png" />
+    
+
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -43,6 +50,97 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <![endif]-->
     <!-- Google Font -->
     @*<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">*@
+
+
+    <script>
+
+        $(document).ready(function () {
+            $("#demoGrid").DataTable({
+
+                "processing": true, // for show progress bar
+                "serverSide": true, // for process server side
+                "filter": true, // this is for disable filter (search box)
+                "orderMulti": false, // for disable multiple column at once
+                "pageLength": 5,
+
+                "ajax": {
+                    "url": "/Demo/LoadData",
+                    "type": "POST",
+                    "datatype": "json"
+                },
+
+                "columnDefs":
+                [{
+                    "targets": [0],
+                    "visible": false,
+                    "searchable": false
+                },
+                {
+                    "targets": [7],
+                    "searchable": false,
+                    "orderable": false
+                },
+                {
+                    "targets": [8],
+                    "searchable": false,
+                    "orderable": false
+                },
+                {
+                    "targets": [9],
+                    "searchable": false,
+                    "orderable": false
+                }],
+
+                "columns": [
+                      { "data": "CustomerID", "name": "CustomerID", "autoWidth": true },
+                      { "data": "CompanyName", "name": "CompanyName", "autoWidth": true },
+                      { "data": "ContactName", "title": "ContactName", "name": "ContactName", "autoWidth": true },
+                      { "data": "ContactTitle", "name": "ContactTitle", "autoWidth": true },
+                      { "data": "City", "name": "City", "autoWidth": true },
+                      { "data": "PostalCode", "name": "PostalCode", "autoWidth": true },
+                      { "data": "Country", "name": "Country", "autoWidth": true },
+                      { "data": "Phone", "name": "Phone", "title": "Status", "autoWidth": true },
+                      {
+                          "render": function (data, type, full, meta)
+                          { return '<a class="btn btn-info" href="/Demo/Edit/' + full.CustomerID + '">Edit</a>'; }
+                      },
+                       {
+                           data: null, render: function (data, type, row) {
+                               return "<a href='#' class='btn btn-danger' onclick=DeleteData('" + row.CustomerID + "'); >Delete</a>";
+                           }
+                       },
+
+                ]
+
+            });
+        });
+    </script>  
+    <script>
+
+        function DeleteData(CustomerID) {
+            if (confirm("Are you sure you want to delete ...?")) {
+                Delete(CustomerID);
+            }
+            else {
+                return false;
+            }
+        }
+
+
+        function Delete(CustomerID) {
+            var url = '@Url.Content("~/")' + "Demo/DeleteCustomer";
+            $.post(url, { ID: CustomerID }, function (data) {
+                if (data == "Deleted") {
+                    alert("Delete Customer !");
+                    oTable = $('#demoGrid').DataTable();
+                    oTable.draw();
+                }
+                else {
+                    alert("Something Went Wrong!");
+                }
+            });
+        }
+    </script>
 
 </head>
 <!--
@@ -188,6 +286,7 @@ desired effect
                                 </li>
                             </ul>
                         </li>
+
                         <!-- User Account Menu -->
                         <li class="dropdown user user-menu">
                             <!-- Menu Toggle Button -->
@@ -195,7 +294,9 @@ desired effect
                                 <!-- The user image in the navbar-->
                                 <img src="~/Asset/img/user1-128x128.jpg" class="user-image" alt="User Image">
                                 <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                                <span class="hidden-xs">NGUYỄN VĂN A</span>
+                                <span class="hidden-xs">
+                                    @Html.Partial("_LoginPartial")
+                                </span>
                             </a>
                             <ul class="dropdown-menu">
                                 <!-- The user image in the menu -->
@@ -203,7 +304,7 @@ desired effect
                                     <img src="~/Asset/img/user1-128x128.jpg" class="img-circle" alt="User Image">
 
                                     <p>
-                                        Nguyen Vsan A - Web Developer
+                                        @Html.Partial("_LoginPartial") - Web Developer
                                         <small>Member since Nov. 2018</small>
                                     </p>
                                 </li>
@@ -228,15 +329,22 @@ desired effect
                                         <a href="#" class="btn btn-default btn-flat">Profile</a>
                                     </div>
                                     <div class="pull-right">
-                                        <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                                        @Html.Partial("_LogOff")
+                                        @*<a href="#" class="btn btn-default btn-flat">Sign out</a>*@
                                     </div>
                                 </li>
                             </ul>
                         </li>
+
+                        @* partial login *@
+
+
+
+
                         <!-- Control Sidebar Toggle Button -->
-                        <!-- <li>
-                        <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
-                    </li> -->
+                        @*<li>
+                                <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+                            </li>*@
                     </ul>
                 </div>
             </nav>
@@ -253,7 +361,7 @@ desired effect
                         <img src="~/Asset/img/user1-128x128.jpg" class="img-circle" alt="User Image">
                     </div>
                     <div class="pull-left info">
-                        <p>NGUYỄN VĂN A</p>
+                        <p>@Html.Partial("_LoginPartial")</p>
                         <!-- Status -->
                         <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                     </div>
@@ -262,7 +370,7 @@ desired effect
                 <!-- search form (Optional) -->
                 <form action="#" method="get" class="sidebar-form">
                     <div class="input-group">
-                        <input type="" name="q" class="form-control" placeholder="Tìm nhanh Mã số thuế...">
+                        <input type="" name="q" class="form-control" placeholder="Tìm nhanh Mã số thuế..." autocomplete="off">
                         <span class="input-group-btn">
                             <button type="submit" name="search" id="search-btn" class="btn btn-flat">
                                 <i class="glyphicon glyphicon-search"></i>
@@ -362,7 +470,7 @@ desired effect
         <div class="content-wrapper">
             <!-- Content Header (Page header) -->
             <section class="content-header">
-                
+
                 <ol class="breadcrumb">
                     <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
                     <li class="active">Here</li>
@@ -374,12 +482,10 @@ desired effect
 
             <!-- Main content -->
             <section class="content container-fluid">
-
                 <!--------------------------
-                | Your Page Content Here |
+                | Your Page Content Here |asd
                 -------------------------->
                 @RenderBody()
-
             </section>
             <!-- /.content -->
         </div>
@@ -409,6 +515,8 @@ desired effect
     <script src="~/Asset/script/adminlte.min.js"></script>
 
     <script src="~/Asset/script/SMEQ.js"></script>
+
+
 
     <!-- Optionally, you can add Slimscroll and FastClick plugins.
      Both of these plugins are recommended to enhance the

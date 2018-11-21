@@ -74,8 +74,8 @@ namespace SMEQ.Controllers
         }
         public ActionResult Index()
         {
-      
-             
+
+
             var user = User.Identity.GetUserId();
             ViewBag.IDRoom = _Customer.GetIDCustomerByUser(user);
             ViewBag.UserName = User.Identity.GetUserName();
@@ -168,35 +168,35 @@ namespace SMEQ.Controllers
             return View();
         }
 
-        public ActionResult History()
-        {
-            ViewBag.IDRoom = Session["DashBoard"];
-            ViewBag.UserName = Session["UserName"];
-            var user = User.Identity.GetUserId();
-            var IDDashBoard = _Customer.GetIDCustomerByUser(user);
-            var Model = _Mapper.Map<Customer, HistoryViewModel>(_Customer.GetDashBoardByID(IDDashBoard));
-            Model.History = _ChatLineServices.GetChatLineByUser(user).GroupBy(f => f.Visitor).Select(d => new ContentChatHepperHistory
-            {
-                Visitor = d.Key,
-                Agent = d.Select(gg => new { gg.Agent, gg.Date }).Where(x => !string.IsNullOrEmpty(x.Agent)).Count() > 0 ? d.Select(gg => new { gg.Agent, gg.Date }).Where(x => !string.IsNullOrEmpty(x.Agent)).OrderByDescending(x => x.Date).FirstOrDefault().Agent : null,
-                sumary = d.Select(gg => new { gg.Line, gg.Date }).OrderBy(s => s.Date).FirstOrDefault().Line,
+        //public ActionResult History()
+        //{
+        //    ViewBag.IDRoom = Session["DashBoard"];
+        //    ViewBag.UserName = Session["UserName"];
+        //    var user = User.Identity.GetUserId();
+        //    var IDDashBoard = _Customer.GetIDCustomerByUser(user);
+        //    var Model = _Mapper.Map<Customer, HistoryViewModel>(_Customer.GetDashBoardByID(IDDashBoard));
+        //    Model.History = _ChatLineServices.GetChatLineByUser(user).GroupBy(f => f.Visitor).Select(d => new ContentChatHepperHistory
+        //    {
+        //        Visitor = d.Key,
+        //        Agent = d.Select(gg => new { gg.Agent, gg.Date }).Where(x => !string.IsNullOrEmpty(x.Agent)).Count() > 0 ? d.Select(gg => new { gg.Agent, gg.Date }).Where(x => !string.IsNullOrEmpty(x.Agent)).OrderByDescending(x => x.Date).FirstOrDefault().Agent : null,
+        //        sumary = d.Select(gg => new { gg.Line, gg.Date }).OrderBy(s => s.Date).FirstOrDefault().Line,
 
-                Date = d.Select(gg => new { gg.Line, gg.Date }).OrderBy(s => s.Date).FirstOrDefault().Date
-            }).ToList();
+        //        Date = d.Select(gg => new { gg.Line, gg.Date }).OrderBy(s => s.Date).FirstOrDefault().Date
+        //    }).ToList();
 
-            //Model.History = _Mapper.Map<IEnumerable<ChatLine>, IEnumerable<ContentChatHepperHistory>>);
-            Model.ListAgent = _Account.GetAll().Where(x => x.ID_Customer == IDDashBoard);
-            foreach (var item in Model.History)
-            {
-                if (!string.IsNullOrEmpty(item.Agent))
-                {
-                    item.AgentName = _Account.GetById(item.Agent).UserName;
-                }
-                item.VisitorName = string.IsNullOrEmpty(_VisitorSevices.GetByID(item.Visitor).User_name) ? string.Empty : _VisitorSevices.GetByID(item.Visitor).User_name;
-            }
-            ViewBag.TypeAccount = _AccountServices.isMain(user);
-            return View(Model);
-        }
+        //    //Model.History = _Mapper.Map<IEnumerable<ChatLine>, IEnumerable<ContentChatHepperHistory>>);
+        //    Model.ListAgent = _Account.GetAll().Where(x => x.ID_Customer == IDDashBoard);
+        //    foreach (var item in Model.History)
+        //    {
+        //        if (!string.IsNullOrEmpty(item.Agent))
+        //        {
+        //            item.AgentName = _Account.GetById(item.Agent).UserName;
+        //        }
+        //        item.VisitorName = string.IsNullOrEmpty(_VisitorSevices.GetByID(item.Visitor).User_name) ? string.Empty : _VisitorSevices.GetByID(item.Visitor).User_name;
+        //    }
+        //    ViewBag.TypeAccount = _AccountServices.isMain(user);
+        //    return View(Model);
+        //}
         [HttpAjaxRequest]
         public ActionResult Agent()
         {
@@ -320,7 +320,7 @@ namespace SMEQ.Controllers
             }
             else
             {
-                var Current = UserManager.FindById(idAgent) ;
+                var Current = UserManager.FindById(idAgent);
                 Current.status = false;
                 UserManager.Update(Current);
                 return Json(new
@@ -387,129 +387,129 @@ namespace SMEQ.Controllers
             }
             return Json(new { stt = false }, JsonRequestBehavior.AllowGet);
         }
-        private bool RemoveFileFromServer(string path)
-        {
-            var fullPath = Request.MapPath(path);
-            if (!System.IO.File.Exists(fullPath)) return false;
+        //private bool RemoveFileFromServer(string path)
+        //{
+        //    var fullPath = Request.MapPath(path);
+        //    if (!System.IO.File.Exists(fullPath)) return false;
 
-            try //Maybe error could happen like Access denied or Presses Already User used
-            {
-                System.IO.File.Delete(fullPath);
-                return true;
-            }
-            catch (Exception e)
-            {
-                //Debug.WriteLine(e.Message);
-            }
-            return false;
-        }
+        //    try //Maybe error could happen like Access denied or Presses Already User used
+        //    {
+        //        System.IO.File.Delete(fullPath);
+        //        return true;
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        //Debug.WriteLine(e.Message);
+        //    }
+        //    return false;
+        //}
 
-        [HttpGet]
-        public JsonResult CustomDateHistory(DateTime? startDate, DateTime? endDate)
-        {
-            if (endDate != null)
-            {
-                if (startDate > endDate || startDate == null)
-                    return Json(new
-                    {
-                        status = false
-                    }, JsonRequestBehavior.AllowGet);
-                var user = User.Identity.GetUserId();
-                var IDCustomer = _Customer.GetIDCustomerByUser(user);
-                var Model = _Mapper.Map<Customer, HistoryViewModel>(_Customer.GetDashBoardByID(IDCustomer));
-                Model.History = _ChatLineServices.GetChatLineByUser(user).Where(x => x.Date <= endDate && x.Date >= startDate).GroupBy(abc => abc.Visitor).Select(d => new ContentChatHepperHistory
-                {
-                    Visitor = d.Key,
-                    Agent = d.Select(gg => new { gg.Agent, gg.Date }).Where(x => !string.IsNullOrEmpty(x.Agent)).Count() > 0 ? d.Select(gg => new { gg.Agent, gg.Date }).Where(x => !string.IsNullOrEmpty(x.Agent)).OrderByDescending(x => x.Date).FirstOrDefault().Agent : null,
-                    sumary = d.Select(gg => new { gg.Line, gg.Date }).OrderBy(s => s.Date).FirstOrDefault().Line,
+        //[HttpGet]
+        //public JsonResult CustomDateHistory(DateTime? startDate, DateTime? endDate)
+        //{
+        //    if (endDate != null)
+        //    {
+        //        if (startDate > endDate || startDate == null)
+        //            return Json(new
+        //            {
+        //                status = false
+        //            }, JsonRequestBehavior.AllowGet);
+        //        var user = User.Identity.GetUserId();
+        //        var IDCustomer = _Customer.GetIDCustomerByUser(user);
+        //        //var Model = _Mapper.Map<Customer, HistoryViewModel>(_Customer.GetDashBoardByID(IDCustomer));
+        //        Model.History = _ChatLineServices.GetChatLineByUser(user).Where(x => x.Date <= endDate && x.Date >= startDate).GroupBy(abc => abc.Visitor).Select(d => new ContentChatHepperHistory
+        //        {
+        //            Visitor = d.Key,
+        //            Agent = d.Select(gg => new { gg.Agent, gg.Date }).Where(x => !string.IsNullOrEmpty(x.Agent)).Count() > 0 ? d.Select(gg => new { gg.Agent, gg.Date }).Where(x => !string.IsNullOrEmpty(x.Agent)).OrderByDescending(x => x.Date).FirstOrDefault().Agent : null,
+        //            sumary = d.Select(gg => new { gg.Line, gg.Date }).OrderBy(s => s.Date).FirstOrDefault().Line,
 
-                    Date = d.Select(gg => new { gg.Line, gg.Date }).OrderBy(s => s.Date).FirstOrDefault().Date
-                }).ToList();
+        //            Date = d.Select(gg => new { gg.Line, gg.Date }).OrderBy(s => s.Date).FirstOrDefault().Date
+        //        }).ToList();
 
-                //Model.History = _Mapper.Map<IEnumerable<ChatLine>, IEnumerable<ContentChatHepperHistory>>);
+        //        //Model.History = _Mapper.Map<IEnumerable<ChatLine>, IEnumerable<ContentChatHepperHistory>>);
 
-                foreach (var item in Model.History)
-                {
-                    if (!string.IsNullOrEmpty(item.Agent))
-                    {
-                        item.AgentName = _Account.GetById(item.Agent).UserName;
-                    }
-                    item.VisitorName = string.IsNullOrEmpty(_VisitorSevices.GetByID(item.Visitor).User_name) ? string.Empty : _VisitorSevices.GetByID(item.Visitor).User_name;
-                }
+        //        foreach (var item in Model.History)
+        //        {
+        //            if (!string.IsNullOrEmpty(item.Agent))
+        //            {
+        //                item.AgentName = _Account.GetById(item.Agent).UserName;
+        //            }
+        //            item.VisitorName = string.IsNullOrEmpty(_VisitorSevices.GetByID(item.Visitor).User_name) ? string.Empty : _VisitorSevices.GetByID(item.Visitor).User_name;
+        //        }
 
-                return Json(new
-                {
-                    data = Model,
-                    status = true
-                }, JsonRequestBehavior.AllowGet);
-            }
-            else
-            {
+        //        return Json(new
+        //        {
+        //            data = Model,
+        //            status = true
+        //        }, JsonRequestBehavior.AllowGet);
+        //    }
+        //    else
+        //    {
 
-                var user = User.Identity.GetUserId();
-                var IDCustomer = _Customer.GetIDCustomerByUser(user);
-                var Model = _Mapper.Map<Customer, HistoryViewModel>(_Customer.GetDashBoardByID(IDCustomer));
-                Model.History = _ChatLineServices.GetChatLineByUser(user).Where(x => x.Date >= startDate).GroupBy(abc => abc.Visitor).Select(d => new ContentChatHepperHistory
-                {
-                    Visitor = d.Key,
-                    Agent = d.Select(gg => new { gg.Agent, gg.Date }).Where(x => !string.IsNullOrEmpty(x.Agent)).Count() > 0 ? d.Select(gg => new { gg.Agent, gg.Date }).Where(x => !string.IsNullOrEmpty(x.Agent)).OrderByDescending(x => x.Date).FirstOrDefault().Agent : null,
-                    sumary = d.Select(gg => new { gg.Line, gg.Date }).OrderBy(s => s.Date).FirstOrDefault().Line,
+        //        var user = User.Identity.GetUserId();
+        //        var IDCustomer = _Customer.GetIDCustomerByUser(user);
+        //        var Model = _Mapper.Map<Customer, HistoryViewModel>(_Customer.GetDashBoardByID(IDCustomer));
+        //        Model.History = _ChatLineServices.GetChatLineByUser(user).Where(x => x.Date >= startDate).GroupBy(abc => abc.Visitor).Select(d => new ContentChatHepperHistory
+        //        {
+        //            Visitor = d.Key,
+        //            Agent = d.Select(gg => new { gg.Agent, gg.Date }).Where(x => !string.IsNullOrEmpty(x.Agent)).Count() > 0 ? d.Select(gg => new { gg.Agent, gg.Date }).Where(x => !string.IsNullOrEmpty(x.Agent)).OrderByDescending(x => x.Date).FirstOrDefault().Agent : null,
+        //            sumary = d.Select(gg => new { gg.Line, gg.Date }).OrderBy(s => s.Date).FirstOrDefault().Line,
 
-                    Date = d.Select(gg => new { gg.Line, gg.Date }).OrderBy(s => s.Date).FirstOrDefault().Date
-                }).ToList();
+        //            Date = d.Select(gg => new { gg.Line, gg.Date }).OrderBy(s => s.Date).FirstOrDefault().Date
+        //        }).ToList();
 
-                //Model.History = _Mapper.Map<IEnumerable<ChatLine>, IEnumerable<ContentChatHepperHistory>>);
+        //        //Model.History = _Mapper.Map<IEnumerable<ChatLine>, IEnumerable<ContentChatHepperHistory>>);
 
-                foreach (var item in Model.History)
-                {
-                    if (!string.IsNullOrEmpty(item.Agent))
-                    {
-                        item.AgentName = _Account.GetById(item.Agent).UserName;
-                    }
-                    item.VisitorName = string.IsNullOrEmpty(_VisitorSevices.GetByID(item.Visitor).User_name) ? string.Empty : _VisitorSevices.GetByID(item.Visitor).User_name;
-                }
+        //        foreach (var item in Model.History)
+        //        {
+        //            if (!string.IsNullOrEmpty(item.Agent))
+        //            {
+        //                item.AgentName = _Account.GetById(item.Agent).UserName;
+        //            }
+        //            item.VisitorName = string.IsNullOrEmpty(_VisitorSevices.GetByID(item.Visitor).User_name) ? string.Empty : _VisitorSevices.GetByID(item.Visitor).User_name;
+        //        }
 
-                return Json(new
-                {
-                    data = Model,
-                    status = true
-                }, JsonRequestBehavior.AllowGet);
-            }
-        }
-        [HttpAjaxRequest]
-        [HttpGet]
-        public JsonResult FitterByAgent(string IdAgent)
-        {
+        //        return Json(new
+        //        {
+        //            data = Model,
+        //            status = true
+        //        }, JsonRequestBehavior.AllowGet);
+        //    }
+        //}
+        //[HttpAjaxRequest]
+        //[HttpGet]
+        //public JsonResult FitterByAgent(string IdAgent)
+        //{
 
-            var user = User.Identity.GetUserId();
-            var IDCustomer = _Customer.GetIDCustomerByUser(user);
-            var Model = _Mapper.Map<Customer, HistoryViewModel>(_Customer.GetDashBoardByID(IDCustomer));
-            Model.History = _ChatLineServices.GetChatLineByUser(user).Where(x => x.Agent == IdAgent).GroupBy(abc => abc.Visitor).Select(d => new ContentChatHepperHistory
-            {
-                Visitor = d.Key,
-                Agent = d.Select(gg => new { gg.Agent, gg.Date }).Where(x => !string.IsNullOrEmpty(x.Agent)).Count() > 0 ? d.Select(gg => new { gg.Agent, gg.Date }).Where(x => !string.IsNullOrEmpty(x.Agent)).OrderByDescending(x => x.Date).FirstOrDefault().Agent : null,
-                sumary = d.Select(gg => new { gg.Line, gg.Date }).OrderBy(s => s.Date).FirstOrDefault().Line,
+        //    var user = User.Identity.GetUserId();
+        //    var IDCustomer = _Customer.GetIDCustomerByUser(user);
+        //    var Model = _Mapper.Map<Customer, HistoryViewModel>(_Customer.GetDashBoardByID(IDCustomer));
+        //    Model.History = _ChatLineServices.GetChatLineByUser(user).Where(x => x.Agent == IdAgent).GroupBy(abc => abc.Visitor).Select(d => new ContentChatHepperHistory
+        //    {
+        //        Visitor = d.Key,
+        //        Agent = d.Select(gg => new { gg.Agent, gg.Date }).Where(x => !string.IsNullOrEmpty(x.Agent)).Count() > 0 ? d.Select(gg => new { gg.Agent, gg.Date }).Where(x => !string.IsNullOrEmpty(x.Agent)).OrderByDescending(x => x.Date).FirstOrDefault().Agent : null,
+        //        sumary = d.Select(gg => new { gg.Line, gg.Date }).OrderBy(s => s.Date).FirstOrDefault().Line,
 
-                Date = d.Select(gg => new { gg.Line, gg.Date }).OrderBy(s => s.Date).FirstOrDefault().Date
-            }).ToList();
+        //        Date = d.Select(gg => new { gg.Line, gg.Date }).OrderBy(s => s.Date).FirstOrDefault().Date
+        //    }).ToList();
 
-            //Model.History = _Mapper.Map<IEnumerable<ChatLine>, IEnumerable<ContentChatHepperHistory>>);
+        //    //Model.History = _Mapper.Map<IEnumerable<ChatLine>, IEnumerable<ContentChatHepperHistory>>);
 
-            foreach (var item in Model.History)
-            {
-                if (!string.IsNullOrEmpty(item.Agent))
-                {
-                    item.AgentName = _Account.GetById(item.Agent).UserName;
-                }
-                item.VisitorName = string.IsNullOrEmpty(_VisitorSevices.GetByID(item.Visitor).User_name) ? string.Empty : _VisitorSevices.GetByID(item.Visitor).User_name;
-            }
-            return Json(new
-            {
-                data = Model,
-                status = true
-            }, JsonRequestBehavior.AllowGet);
+        //    foreach (var item in Model.History)
+        //    {
+        //        if (!string.IsNullOrEmpty(item.Agent))
+        //        {
+        //            item.AgentName = _Account.GetById(item.Agent).UserName;
+        //        }
+        //        item.VisitorName = string.IsNullOrEmpty(_VisitorSevices.GetByID(item.Visitor).User_name) ? string.Empty : _VisitorSevices.GetByID(item.Visitor).User_name;
+        //    }
+        //    return Json(new
+        //    {
+        //        data = Model,
+        //        status = true
+        //    }, JsonRequestBehavior.AllowGet);
 
-        }
+        //}
         //[HttpAjaxRequest]
         //[HttpGet]
         //public JsonResult FitterByFeeling(bool Like)
@@ -538,91 +538,93 @@ namespace SMEQ.Controllers
         //        status = true
         //    }, JsonRequestBehavior.AllowGet);            
         //}
-        [HttpAjaxRequest]
-        [HttpGet]
-        public JsonResult LoadConvert(string IDvisitor)
-        {
+        //[HttpAjaxRequest]
+        //[HttpGet]
+        //public JsonResult LoadConvert(string IDvisitor)
+        //{
 
-            var user = User.Identity.GetUserId();
-            var model = _Mapper.Map<IEnumerable<ChatLine>, IEnumerable<ChatLineViewModel>>(_ChatLineServices.GetByVisitorAgent(IDvisitor, user));
-            foreach (var item in model)
-            {
+        //    var user = User.Identity.GetUserId();
+        //    var model = _Mapper.Map<IEnumerable<ChatLine>, IEnumerable<ChatLineViewModel>>(_ChatLineServices.GetByVisitorAgent(IDvisitor, user));
+        //    foreach (var item in model)
+        //    {
 
-                item.NameAgent = (item.Actor == false ?
-                 (item.Agent == null ? "" : _Account.GetById(item.Agent).UserName) :
-                    (_VisitorSevices.GetByID(item.Visitor).User_name == null ? _VisitorSevices.GetByID(item.Visitor).ID : _VisitorSevices.GetByID(item.Visitor).User_name));
-
-
-            }
-
-            return Json(new
-            {
-                data = model,
-                status = true
-            }, JsonRequestBehavior.AllowGet);
-        }
-
-        [HttpGet]
-        public JsonResult FitterMutilt(string mess = "", string visitor = "", string email = "", string phone = "")
-        {
+        //        item.NameAgent = (item.Actor == false ?
+        //         (item.Agent == null ? "" : _Account.GetById(item.Agent).UserName) :
+        //            (_VisitorSevices.GetByID(item.Visitor).User_name == null ? _VisitorSevices.GetByID(item.Visitor).ID : _VisitorSevices.GetByID(item.Visitor).User_name));
 
 
-            var user = User.Identity.GetUserId();
-            var IDCustomer = _Customer.GetIDCustomerByUser(user);
-            var Model = _Mapper.Map<Customer, HistoryViewModel>(_Customer.GetDashBoardByID(IDCustomer));
-            Model.History = _ChatLineServices.FitterMutilt(IDCustomer, mess, visitor, email, phone).GroupBy(abc =>  abc.Visitor).Select(d => new ContentChatHepperHistory
-            {
-                Visitor = d.Key,
-                Agent = d.Select(gg => new { gg.Agent, gg.Date }).Where(x => !string.IsNullOrEmpty(x.Agent)).Count() > 0 ? d.Select(gg => new { gg.Agent, gg.Date }).Where(x => !string.IsNullOrEmpty(x.Agent)).OrderByDescending(x => x.Date).FirstOrDefault().Agent : null,
-                sumary = d.Select(gg => new { gg.Line, gg.Date }).OrderBy(s => s.Date).FirstOrDefault().Line,
+        //    }
 
-                Date = d.Select(gg => new { gg.Line, gg.Date }).OrderBy(s => s.Date).FirstOrDefault().Date
-            }).ToList();
+        //    return Json(new
+        //    {
+        //        data = model,
+        //        status = true
+        //    }, JsonRequestBehavior.AllowGet);
+        //}
 
-            //Model.History = _Mapper.Map<IEnumerable<ChatLine>, IEnumerable<ContentChatHepperHistory>>);
-
-            foreach (var item in Model.History)
-            {
-                if (!string.IsNullOrEmpty(item.Agent))
-                {
-                    item.AgentName = _Account.GetById(item.Agent).UserName;
-                }
-                item.VisitorName = string.IsNullOrEmpty(_VisitorSevices.GetByID(item.Visitor).User_name) ? string.Empty : _VisitorSevices.GetByID(item.Visitor).User_name;
-            }
+        //[HttpGet]
+        //public JsonResult FitterMutilt(string mess = "", string visitor = "", string email = "", string phone = "")
+        //{
 
 
-            return Json(new
-            {
-                data = Model,
-                status = true
-            }, JsonRequestBehavior.AllowGet);
-        }
-        [HttpPost]
-        [HttpAjaxRequest]
-        public JsonResult SettingUpdate(string emailsend, bool sound, bool sharefileAgent, bool sharefileVisitor)
-        {
-            var user = User.Identity.GetUserId();
-            var IDCustomer = _Customer.GetIDCustomerByUser(user);
-            try
-            {
-                var setting = _Settingservices.EditSetting(IDCustomer, emailsend, sound, sharefileAgent, sharefileVisitor);
-                return Json(new
-                {
-                    date = setting,
-                    status = true
+        //    var user = User.Identity.GetUserId();
+        //    var IDCustomer = _Customer.GetIDCustomerByUser(user);
+        //    var Model = _Mapper.Map<Customer, HistoryViewModel>(_Customer.GetDashBoardByID(IDCustomer));
+        //    Model.History = _ChatLineServices.FitterMutilt(IDCustomer, mess, visitor, email, phone).GroupBy(abc =>  abc.Visitor).Select(d => new ContentChatHepperHistory
+        //    {
+        //        Visitor = d.Key,
+        //        Agent = d.Select(gg => new { gg.Agent, gg.Date }).Where(x => !string.IsNullOrEmpty(x.Agent)).Count() > 0 ? d.Select(gg => new { gg.Agent, gg.Date }).Where(x => !string.IsNullOrEmpty(x.Agent)).OrderByDescending(x => x.Date).FirstOrDefault().Agent : null,
+        //        sumary = d.Select(gg => new { gg.Line, gg.Date }).OrderBy(s => s.Date).FirstOrDefault().Line,
 
-                });
-            }
-            catch
-            {
-                return Json(new
-                {
-                    status = false
+        //        Date = d.Select(gg => new { gg.Line, gg.Date }).OrderBy(s => s.Date).FirstOrDefault().Date
+        //    }).ToList();
 
-                });
-            }
+        //    //Model.History = _Mapper.Map<IEnumerable<ChatLine>, IEnumerable<ContentChatHepperHistory>>);
 
-        }
+        //    foreach (var item in Model.History)
+        //    {
+        //        if (!string.IsNullOrEmpty(item.Agent))
+        //        {
+        //            item.AgentName = _Account.GetById(item.Agent).UserName;
+        //        }
+        //        item.VisitorName = string.IsNullOrEmpty(_VisitorSevices.GetByID(item.Visitor).User_name) ? string.Empty : _VisitorSevices.GetByID(item.Visitor).User_name;
+        //    }
+
+
+        //    return Json(new
+        //    {
+        //        data = Model,
+        //        status = true
+        //    }, JsonRequestBehavior.AllowGet);
+        //}
+
+        //[HttpPost]
+        //[HttpAjaxRequest]
+        //    public JsonResult SettingUpdate(string emailsend, bool sound, bool sharefileAgent, bool sharefileVisitor)
+        //    {
+        //        var user = User.Identity.GetUserId();
+        //        var IDCustomer = _Customer.GetIDCustomerByUser(user);
+        //        try
+        //        {
+        //            var setting = _Settingservices.EditSetting(IDCustomer, emailsend, sound, sharefileAgent, sharefileVisitor);
+        //            return Json(new
+        //            {
+        //                date = setting,
+        //                status = true
+
+        //            });
+        //        }
+        //        catch
+        //        {
+        //            return Json(new
+        //            {
+        //                status = false
+
+        //            });
+        //        }
+
+        //    }
+        //}
+
     }
-
 }

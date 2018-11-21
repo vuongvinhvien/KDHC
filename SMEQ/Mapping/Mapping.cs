@@ -20,7 +20,7 @@ namespace SMEQ.Mapping
         public Mapping()
         {
 
-            CreateMap<Customer, HistoryViewModel>();
+            //CreateMap<Customer, HistoryViewModel>();
             CreateMap<AspNetUser, SMEQ.Areas.Admin.Models.ListAccoutViewModel>();
             CreateMap<ChatLine, ChatLineViewModel>();
             CreateMap<AspNetUser, DetailAgentViewModel>();
