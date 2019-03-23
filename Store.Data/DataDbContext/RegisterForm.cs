@@ -38,10 +38,10 @@ namespace Store.Data.DataDbContext
 
         [StringLength(10)]
         public string Languge { get; set; }
-
+        [Required]
         public DateTime? ExpectedDate { get; set; }
-
-        public DateTime? CreatedDate { get; set; }
+        [Required]
+        public DateTime CreatedDate { get; set; }
 
         [StringLength(128)]
         public string CreatedBy { get; set; }

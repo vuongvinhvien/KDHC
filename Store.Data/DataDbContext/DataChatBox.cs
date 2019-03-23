@@ -10,6 +10,8 @@ namespace Store.Data.DataDbContext
         public DataChatBox()
             : base("name=DataChatBox4")
         {
+            //config to use datatable
+            this.Configuration.ProxyCreationEnabled = false;
         }
 
         public virtual DbSet<AspNetRole> AspNetRoles { get; set; }

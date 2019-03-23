@@ -82,6 +82,15 @@
     <Compile Include="DataDbContext\Vehicle.cs" />
     <Compile Include="DataDbContext\Visitor.cs" />
     <Compile Include="DataDbContext\Ward.cs" />
+    <Compile Include="Migrations\201811221829146_add.cs" />
+    <Compile Include="Migrations\201811221829146_add.Designer.cs">
+      <DependentUpon>201811221829146_add.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811221848474_add1.cs" />
+    <Compile Include="Migrations\201811221848474_add1.Designer.cs">
+      <DependentUpon>201811221848474_add1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\IAccountResponsitory.cs" />
     <Compile Include="Repositories\IAspNetRoleResponsitory.cs" />
@@ -102,6 +111,14 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="obj\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201811221829146_add.resx">
+      <DependentUpon>201811221829146_add.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811221848474_add1.resx">
+      <DependentUpon>201811221848474_add1.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,0 +1,1064 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+
+<script>
+    $(document).ready(function () {
+        $("#demoGrid").DataTable({
+
+            "processing": true, // for show progress bar
+            "serverSide": true, // for process server side
+            "filter": true, // this is for disable filter (search box)
+            "orderMulti": false, // for disable multiple column at once
+            "pageLength": 5,
+
+            "ajax": {
+                "url": "/RegisterForm/ListByCustomerData",
+                "type": "POST",
+                "datatype": "json",
+            },
+
+
+            "columnDefs":
+                [{
+                    "targets": [0],
+                    "visible": false,
+                    "searchable": false
+                },
+                //{
+                //    "targets": [1],
+                //    "searchable": false,
+                //    "orderable": false
+                //},
+                //{
+                //    "targets": [2],
+                //    "searchable": false,
+                //    "orderable": false
+                //},
+                {
+                    "targets": [5],
+                    "searchable": false,
+                    "orderable": false
+                }],
+
+            "columns": [
+                { "data": "id", "name": "id", "autoWidth": true },
+                { "data": "Code", "name": "Code", "autoWidth": true },
+                { "data": "CustomerId", "name": "CustomerId", "autoWidth": true },
+                { "data": "RegisterName", "name": "RegisterName", "autoWidth": true },
+                { "data": "Testing", "name": "Testing", "autoWidth": true },
+                { "data": "Calibration", "name": "Calibration", "autoWidth": true },
+
+                //{ "data": "TotalPrice", "name": "TotalPrice", "autoWidth": true },
+
+                //{ "data": "CreatedDate", "name": "CreatedDate", "autoWidth": true },
+
+                //{
+                //    data: 'CreatedDate',
+                //    render: function ( data, type, row ) {
+                //        // If display or filter data is requested, format the date
+                //        if ( type === 'display' || type === 'filter' ) {
+                //            var d = new Date( data * 1000 );
+                //            return d.getDate() +'-'+ (d.getMonth()+1) +'-'+ d.getFullYear();
+                //        }
+
+                //        // Otherwise the data type requested (`type`) is type detection or
+                //        // sorting data, for which we want to use the integer, so just return
+                //        // that, unaltered
+                //        return data;
+                //    }
+                //},
+
+
+                //{
+                //    "data": "CreatedDate","name": "CreatedDate",
+                //    "render": function (data) {
+                //        var date = new Date(data);
+                //        var month = date.getMonth() + 1;
+                //        return (month.length > 1 ? month : "/" + month) + "/" + date.getDate() + "/" + date.getFullYear();
+                //    },
+                //     "autoWidth": true
+                //},
+
+
+                {
+                    "data": "CreatedDate",
+                    "name": "CreatedDate",
+                    "render": function (data) {
+                        if (data) {
+                            var pattern = /Date\(([^)]+)\)/;//date format from server side
+                            var results = pattern.exec(data);
+                            var dt = new Date(parseFloat(results[1]));
+                            return dt.getDate() + "-" + (dt.getMonth() + 1) + "-" + dt.getFullYear();
+                        }
+
+                    },
+                    "autoWidth": true
+                },
+
+
+                //{ "data": "ProcessingStatusId", "name": "ProcessingStatusId", "autoWidth": true },
+
+                {
+                    "render": function (data, type, full, meta) {
+                        //return '<p data-placement="top" data-toggle="tooltip" title="Edit"><button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit"><span class="glyphicon glyphicon-pencil"></span> Chi tiết</button></p>';
+                        return '<p data-placement="top" data-toggle="tooltip" title="Edit"> <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal"> Chi tiết </button></p>';
+                    }
+                },
+
+                {
+                    data: null, render: function (data, type, row) {
+                        return "<a href='#' class='btn btn-danger' onclick=DeleteData('" + row.id + "'); >Delete</a>";
+                    }
+                },
+
+            ]
+
+        });
+    });
+</script>
+
+<script>
+
+        function DeleteData(id) {
+            if (confirm("Are you sure you want to delete ...?")) {
+                Delete(id);
+            }
+            else {
+                return false;
+            }
+        }
+
+
+        function Delete(id) {
+            var url = '@Url.Content("~/")' + "RegisterForm/DeleteRecord";
+            $.post(url, { ID: id }, function (data) {
+                if (data === "Deleted") {
+                    alert("Delete Customer !");
+                    oTable = $('#demoGrid').DataTable();
+                    oTable.draw();
+                }
+                else {
+                    alert("Something Went Wrong!");
+                }
+            });
+        }
+</script>
+
+<style>
+    #edit .modal-dialog {
+        width: auto;
+        max-width: 100%;
+    }
+
+    #Add .modal-dialog {
+        width: auto;
+        max-width: 100%;
+    }
+
+    #myModal .modal-dialog {
+        width: auto;
+        max-width: 100%;
+    }
+
+    a {
+        color: white;
+    }
+
+        a:hover {
+            color: white;
+            /* background-color: white; */
+        }
+</style>
+
+
+
+
+<script src="~/Asset/script/show_ads.js"></script>
+
+<div class="container-fluid">
+    <br />
+    <div style="width:90%; margin:0 auto;">
+        <table id="demoGrid" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>Mã phiếu</th>
+                    <th>ID khách hàng</th>
+                    <th>Tên người đăng ký</th>
+                    <th>Kiểm định</th>
+                    <th>Hiệu chuẩn</th>
+                    @*<th>Tổng tiền</th>*@
+                    <th>Ngày tạo</th>
+                    @*<th>Trạng thái</th>*@
+                    <th>Thông tin</th>
+                    <th>Xóa</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+
+<div class="modal fade container-fluid" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog container-fluid">
+        <div class="modal-content container-fluid">
+            <div class="modal-header container-fluid">
+                <h4 class="js-title-step"></h4>
+            </div>
+            <div class="modal-body container-fluid">
+                <div class="row hide container-fluid" data-step="1" data-title="Thông tin đăng ký!" >
+                    @*<div class="well">As you can see, this is the first step!</div>*@
+                    <div class="container text-center">
+                        <div class="row">
+                            <fieldset>
+                                
+                                <form class="form-horizontal text-left " action="/action_page.cshtml">
+                                    <div class="text-center">
+                                        <hr>
+                                        <div class="col-md-12 container">
+
+
+
+                                            <div class="row form-group row ">
+                                                <div class="col-md-4 row">
+                                                    <label class="control-label col-md-4" for="">Mã số thuế:</label>
+                                                    <div class="col-md-8">
+                                                        <input type="text" class="form-control" id="" placeholder="" readonly>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-8 row">
+                                                    <label class="control-label col-md-2 " for="">Tên đơn vị:</label>
+                                                    <div class="col-md-8">
+                                                        <input type="text" class="form-control" id="" placeholder="" readonly>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+
+                                            <div class="container">
+                                                <div class="row clearfix">
+                                                    <div class="col-md-11 column">
+                                                        <table class="table table-bordered table-hover" id="tab_logic">
+                                                            <thead class="thead-dark">
+                                                                <tr>
+                                                                    <th class="text-center">
+                                                                        #
+                                                                    </th>
+                                                                    <th class="text-center col-md-4">
+                                                                        Phương tiện đo
+                                                                    </th>
+                                                                    <th class="text-center col-md-1">
+                                                                        Số lượng
+                                                                    </th>
+                                                                    <th class="text-center col-md-4">
+                                                                        Phương pháp thử
+                                                                    </th>
+                                                                    <th class="text-center " colspan="2">
+                                                                        Yêu cầu
+                                                                    </th>
+
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr id='addr0'>
+                                                                    <td class="text-center">
+                                                                        1
+                                                                    </td>
+                                                                    <td>
+                                                                        <input type="text" name='name0' placeholder='Phương tiện đo'
+                                                                               class="form-control" />
+                                                                    </td>
+                                                                    <td>
+                                                                        <input type="text" name='mail0' placeholder='Số lượng'
+                                                                               class="form-control" />
+                                                                    </td>
+                                                                    <td>
+                                                                        <input type="text" name='mobile0' placeholder='Phương pháp thử'
+                                                                               class="form-control" />
+                                                                    </td>
+                                                                    <td>
+                                                                        <input type="text" name='mobile0' placeholder='Kiểm định'
+                                                                               class="form-control" />
+                                                                    </td>
+                                                                    <td>
+                                                                        <input type="text" name='mobile0' placeholder='Hiệu chuẩn'
+                                                                               class="form-control" />
+                                                                    </td>
+                                                                </tr>
+                                                                <tr id='addr1'></tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                                <a id="add_row" class="btn btn-success pull-left">
+                                                    <span class="glyphicon glyphicon-plus"></span>Thêm
+                                                    dòng
+                                                </a><a id='delete_row' class=" btn btn-danger">
+                                                    <span class="glyphicon glyphicon-minus"></span>Xóa
+                                                    dòng
+                                                </a>
+                                            </div>
+                                            <hr>
+ 
+
+                                           
+
+
+                                        </div>
+                                        <br>
+                                        <hr>
+                                        @*<button type="submit" class="btn btn-primary center-block">Xác nhận</button>*@
+
+
+                                    </div>
+                                </form>
+                            </fieldset>
+
+                        </div>
+
+
+
+                    </div>
+
+
+
+
+                </div>
+                <div class="row hide container-fluid" data-step="2" data-title="Cập nhật thông tin đăng ký khách hàng!">
+                    <div class="container text-center">
+                        <div class="row">
+                            <fieldset>
+
+                                <form class="form-horizontal text-left " action="/action_page.cshtml">
+                                    <div class="text-center">
+                                        <hr>
+                                        <div class="col-md-12 container">
+
+
+
+                                            <div class="row form-group row ">
+                                                <div class="col-md-4 row">
+                                                    <label class="control-label col-md-4" for="">Mã số thuế:</label>
+                                                    <div class="col-md-8">
+                                                        <input type="text" class="form-control" id="" placeholder="" readonly>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-8 row">
+                                                    <label class="control-label col-md-2 " for="">Tên đơn vị:</label>
+                                                    <div class="col-md-8">
+                                                        <input type="text" class="form-control" id="" placeholder="" readonly>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+
+                                            <div class="container">
+                                                <div class="row clearfix">
+                                                    <div class="col-md-11 column">
+                                                        <table class="table table-bordered table-hover" id="tab_logic">
+                                                            <thead class="thead-dark">
+                                                                <tr>
+                                                                    <th class="text-center">
+                                                                        #
+                                                                    </th>
+                                                                    <th class="text-center col-md-4">
+                                                                        Phương tiện đo
+                                                                    </th>
+                                                                    <th class="text-center col-md-1">
+                                                                        Số lượng
+                                                                    </th>
+                                                                    <th class="text-center col-md-4">
+                                                                        Phương pháp thử
+                                                                    </th>
+                                                                    <th class="text-center " colspan="2">
+                                                                        Yêu cầu
+                                                                    </th>
+
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr id='addr0'>
+                                                                    <td class="text-center">
+                                                                        1
+                                                                    </td>
+                                                                    <td>
+                                                                        <input type="text" name='name0' placeholder='Phương tiện đo'
+                                                                               class="form-control" />
+                                                                    </td>
+                                                                    <td>
+                                                                        <input type="text" name='mail0' placeholder='Số lượng'
+                                                                               class="form-control" />
+                                                                    </td>
+                                                                    <td>
+                                                                        <input type="text" name='mobile0' placeholder='Phương pháp thử'
+                                                                               class="form-control" />
+                                                                    </td>
+                                                                    <td>
+                                                                        <input type="text" name='mobile0' placeholder='Kiểm định'
+                                                                               class="form-control" />
+                                                                    </td>
+                                                                    <td>
+                                                                        <input type="text" name='mobile0' placeholder='Hiệu chuẩn'
+                                                                               class="form-control" />
+                                                                    </td>
+                                                                </tr>
+                                                                <tr id='addr1'></tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                                <a id="add_row" class="btn btn-success pull-left">
+                                                    <span class="glyphicon glyphicon-plus"></span>Thêm
+                                                    dòng
+                                                </a><a id='delete_row' class=" btn btn-danger">
+                                                    <span class="glyphicon glyphicon-minus"></span>Xóa
+                                                    dòng
+                                                </a>
+                                            </div>
+                                            <hr>
+                                            <div>
+                                                <h3 class="text-center">NHẬN KIỂM ĐỊNH/ HIỆU CHUẨN:</h3>
+                                                <p>
+                                                    <b>TTKT TĐC Tp.HCM</b> đã xem xét và nhận kiểm định/ hiệu chuẩn theo yêu
+                                                    cầu của
+                                                    khác
+                                                    hàng và các điều kiện ghi trong phiếu này. Chi phí kiểm định/ hiệu
+                                                    chuẩn được tính
+                                                    như
+                                                    sau:
+                                                </p>
+                                            </div>
+                                            <div class="container">
+                                                <div class="row clearfix">
+                                                    <div class="col-md-11 column">
+                                                        <table class="table table-bordered table-hover" id="tab_logic2">
+                                                            <thead class="thead-dark">
+                                                                <tr>
+                                                                    <th class="text-center">
+                                                                        #
+                                                                    </th>
+                                                                    <th class="text-center col-sm-4">
+                                                                        Phương tiện đo
+                                                                    </th>
+                                                                    <th class="text-center col-sm-1">
+                                                                        Số lượng"
+                                                                    </th>
+                                                                    <th class="text-center col-sm-2">
+                                                                        Đơn giá
+                                                                    </th>
+                                                                    <th class="text-center col-sm-1">
+                                                                        tăng
+                                                                    </th>
+                                                                    <th class="text-center col-sm-1">
+                                                                        giảm
+                                                                    </th>
+                                                                    <th class="text-center col-sm-3">
+                                                                        Thành tiền
+                                                                    </th>
+
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr id='addr20'>
+                                                                    <td>
+                                                                        1
+                                                                    </td>
+                                                                    <td>
+                                                                        <input type="text" name='' placeholder='Phương tiện đo'
+                                                                               class="form-control" />
+                                                                    </td>
+                                                                    <td>
+                                                                        <input type="text" name='' placeholder='Số lượng'
+                                                                               class="form-control" />
+                                                                    </td>
+                                                                    <td>
+                                                                        <input type="text" name='' placeholder='Đơn giá'
+                                                                               class="form-control" />
+                                                                    </td>
+                                                                    <td>
+                                                                        <input type="text" name='' placeholder='Tăng' class="form-control" />
+                                                                    </td>
+                                                                    <td>
+                                                                        <input type="text" name='' placeholder='Giảm' class="form-control" />
+                                                                    </td>
+                                                                    <td>
+                                                                        <input type="text" name='' placeholder='thành tiền'
+                                                                               class="form-control" />
+                                                                    </td>
+                                                                </tr>
+                                                                <tr id='addr21'></tr>
+                                                            </tbody>
+                                                        </table>
+
+                                                        <div class="input-group col-sm-offset-8 col-md-4">
+                                                            <span class="input-group-addon">Tổng tiền</span>
+                                                            <input type="text" class="form-control" placeholder="..."
+                                                                   readonly="true">
+                                                            <span class="input-group-addon">vnđ</span>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+
+                                                <div>
+                                                    <a id="add_row2" class="btn btn-success pull-left">
+                                                        <span class="glyphicon glyphicon-plus"></span>Thêm
+                                                        dòng
+                                                    </a>
+                                                    <a id='delete_row2' class=" btn btn-danger">
+                                                        <span class="glyphicon glyphicon-minus"></span>Xóa
+                                                        dòng
+                                                    </a>
+                                                </div>
+
+
+
+                                            </div>
+                                            <hr>
+
+                                            <div class="row">
+
+                                                <div class="col-md-3">
+                                                    <label class="">Tình trạng phương tiện đo:</label>
+                                                </div>
+                                                <div class="row col-md-5">
+                                                    <div class="row col-md-6">
+                                                        <input type="checkbox" class="form-checkbox" id=""><label for="">Mới</label>
+                                                    </div>
+                                                    <div class="row col-md-6">
+                                                        <input type="checkbox" class="form-checkbox" id=""><label for="">
+                                                            Đã
+                                                            qua sử dụng
+                                                        </label>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <hr>
+                                            <div class="row">
+                                                <label class="control-label col-md-2" for="" style="text-align: left;">
+                                                    Ngày
+                                                    yêu cầu trả
+                                                    mẫu:
+                                                </label>
+                                                <div class="col-md-2">
+                                                    <input type="date" class="form-control " id="" placeholder="" maxlength="12">
+                                                </div>
+
+
+                                                <div class="col-md-3">
+                                                    <label class="">Hiệu lực hiệu chuẩn theo yêu cầu khách:</label>
+                                                </div>
+                                                <div class="row col-md-5">
+                                                    <div class="row col-md-4">
+                                                        <input type="checkbox" class="form-checkbox" id=""><label for="">
+                                                            6
+                                                            tháng
+                                                        </label>
+                                                    </div>
+                                                    <div class="row col-md-4">
+                                                        <input type="checkbox" class="form-checkbox" id=""><label for="">
+                                                            1
+                                                            năm
+                                                        </label>
+                                                    </div>
+                                                    <div class="row col-md-4">
+                                                        <input type="checkbox" class="form-checkbox" id=""><label for="">khác</label>
+                                                    </div>
+                                                </div>
+
+
+
+
+                                            </div>
+                                            <hr>
+                                            <div class="row">
+                                                <label class="control-label col-md-2" for="" style="text-align: left;">
+                                                    Ngày
+                                                    nhận đăng
+                                                    ký:
+                                                </label>
+                                                <div class="col-md-2">
+                                                    <input type="date" class="form-control " id="" placeholder="" maxlength="12">
+                                                </div>
+
+
+                                                <div class="row col-md-8">
+                                                    <label class="col-md-2" for="">Tiếp nhận bằng</label>
+                                                    <div class="row col-md-3">
+                                                        <input type="checkbox" class="form-checkbox" id=""><label for="">
+                                                            Công
+                                                            văn
+                                                        </label>
+                                                    </div>
+                                                    <div class="row col-md-3">
+                                                        <input type="checkbox" class="form-checkbox" id=""><label for="">
+                                                            Điện
+                                                            thoại
+                                                        </label>
+                                                    </div>
+
+                                                    <div class="row col-md-3">
+                                                        <input type="checkbox" class="form-checkbox" id=""><label for="">
+                                                            Trực
+                                                            tiếp
+                                                        </label>
+                                                    </div>
+                                                    <div class="row col-md-1">
+                                                        <input type="checkbox" class="form-checkbox" id=""><label for="">Fax</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <div class="row">
+                                                <label class="control-label col-md-2" for="" style="text-align: left;">
+                                                    Ngày
+                                                    trả kết
+                                                    quả KĐ/HC dự kiến:
+                                                </label>
+                                                <div class="col-md-2">
+                                                    <input type="date" class="form-control " id="" placeholder="">
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <div class="row ">
+                                                <div class="col-md-2">
+                                                    <label class="control-label" for="" style="text-align: left;">
+                                                        Nơi
+                                                        thực hiện:
+                                                    </label>
+                                                </div>
+
+                                                <div class="row col-md-2">
+                                                    <input type="checkbox" class="form-checkbox" id=""><label for="">
+                                                        Tại
+                                                        cở sở
+                                                    </label>
+                                                </div>
+                                                <div class="row col-md-3">
+                                                    <input type="checkbox" class="form-checkbox" id=""><label for="">
+                                                        TTKT
+                                                        TĐC Tp.HCM
+                                                    </label>
+                                                </div>
+                                                <label class="control-label col-md-2" for="" style="text-align: left;">
+                                                    Giấy
+                                                    chứng nhận
+                                                    trả
+                                                    bằng tiếng:
+                                                </label>
+                                                <div class="row col-md-2">
+                                                    <input type="checkbox" class="form-checkbox" id=""><label for="">
+                                                        Tiếng
+                                                        Việt
+                                                    </label>
+                                                </div>
+                                                <div class="row col-md-2">
+                                                    <input type="checkbox" class="form-checkbox" id=""><label for="">
+                                                        Tiếng
+                                                        Anh
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <hr>
+
+
+                                        </div>
+                                        <br>
+                                        <hr>
+                                        <button type="submit" class="btn btn-primary center-block">Xác nhận</button>
+
+
+                                    </div>
+                                </form>
+                            </fieldset>
+
+                        </div>
+
+
+
+                    </div>
+
+
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default js-btn-step pull-left" data-orientation="cancel" data-dismiss="modal"></button>
+                <button type="button" class="btn btn-warning js-btn-step" data-orientation="previous"></button>
+                <button type="button" class="btn btn-success js-btn-step" data-orientation="next"></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+@*<div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="container text-center">
+                <div class="row">
+                    <fieldset>
+                        <legend>
+                            <h2>Cập nhật thông tin đăng ký</h2>
+                        </legend>
+                        <form class="form-horizontal text-left " action="/action_page.cshtml">
+                            <div class="text-center">
+                                <hr>
+                                <div class="col-md-12 container">
+
+
+
+                                    <div class="row form-group row ">
+                                        <div class="col-md-4 row">
+                                            <label class="control-label col-md-4" for="">Mã số thuế:</label>
+                                            <div class="col-md-8">
+                                                <input type="text" class="form-control" id="" placeholder="" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-8 row">
+                                            <label class="control-label col-md-2 " for="">Tên đơn vị:</label>
+                                            <div class="col-md-8">
+                                                <input type="text" class="form-control" id="" placeholder="" readonly>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="container">
+                                        <div class="row clearfix">
+                                            <div class="col-md-11 column">
+                                                <table class="table table-bordered table-hover" id="tab_logic">
+                                                    <thead class="thead-dark">
+                                                        <tr>
+                                                            <th class="text-center">
+                                                                #
+                                                            </th>
+                                                            <th class="text-center col-md-4">
+                                                                Phương tiện đo
+                                                            </th>
+                                                            <th class="text-center col-md-1">
+                                                                Số lượng
+                                                            </th>
+                                                            <th class="text-center col-md-4">
+                                                                Phương pháp thử
+                                                            </th>
+                                                            <th class="text-center " colspan="2">
+                                                                Yêu cầu
+                                                            </th>
+
+                                                        </tr>
+                                                        </thead>
+                                                    <tbody>
+                                                        <tr id='addr0'>
+                                                            <td class="text-center">
+                                                                1
+                                                            </td>
+                                                            <td>
+                                                                <input type="text" name='name0' placeholder='Phương tiện đo'
+                                                                       class="form-control" />
+                                                            </td>
+                                                            <td>
+                                                                <input type="text" name='mail0' placeholder='Số lượng'
+                                                                       class="form-control" />
+                                                            </td>
+                                                            <td>
+                                                                <input type="text" name='mobile0' placeholder='Phương pháp thử'
+                                                                       class="form-control" />
+                                                            </td>
+                                                            <td>
+                                                                <input type="text" name='mobile0' placeholder='Kiểm định'
+                                                                       class="form-control" />
+                                                            </td>
+                                                            <td>
+                                                                <input type="text" name='mobile0' placeholder='Hiệu chuẩn'
+                                                                       class="form-control" />
+                                                            </td>
+                                                        </tr>
+                                                        <tr id='addr1'></tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <a id="add_row" class="btn btn-success pull-left">
+                                            <span class="glyphicon glyphicon-plus"></span>Thêm
+                                            dòng
+                                        </a><a id='delete_row' class=" btn btn-danger">
+                                            <span class="glyphicon glyphicon-minus"></span>Xóa
+                                            dòng
+                                        </a>
+                                    </div>
+                                    <hr>
+                                    <div>
+                                        <h3 class="text-center">NHẬN KIỂM ĐỊNH/ HIỆU CHUẨN:</h3>
+                                        <p>
+                                            <b>TTKT TĐC Tp.HCM</b> đã xem xét và nhận kiểm định/ hiệu chuẩn theo yêu
+                                            cầu của
+                                            khác
+                                            hàng và các điều kiện ghi trong phiếu này. Chi phí kiểm định/ hiệu
+                                            chuẩn được tính
+                                            như
+                                            sau:
+                                        </p>
+                                    </div>
+                                    <div class="container">
+                                        <div class="row clearfix">
+                                            <div class="col-md-11 column">
+                                                <table class="table table-bordered table-hover" id="tab_logic2">
+                                                    <thead class="thead-dark">
+                                                        <tr>
+                                                            <th class="text-center">
+                                                                #
+                                                            </th>
+                                                            <th class="text-center col-sm-4">
+                                                                Phương tiện đo
+                                                            </th>
+                                                            <th class="text-center col-sm-1">
+                                                                Số lượng"
+                                                            </th>
+                                                            <th class="text-center col-sm-2">
+                                                                Đơn giá
+                                                            </th>
+                                                            <th class="text-center col-sm-1">
+                                                                tăng
+                                                            </th>
+                                                            <th class="text-center col-sm-1">
+                                                                giảm
+                                                            </th>
+                                                            <th class="text-center col-sm-3">
+                                                                Thành tiền
+                                                            </th>
+
+                                                        </tr>
+                                                        </thead>
+                                                    <tbody>
+                                                        <tr id='addr20'>
+                                                            <td>
+                                                                1
+                                                            </td>
+                                                            <td>
+                                                                <input type="text" name='' placeholder='Phương tiện đo'
+                                                                       class="form-control" />
+                                                            </td>
+                                                            <td>
+                                                                <input type="text" name='' placeholder='Số lượng'
+                                                                       class="form-control" />
+                                                            </td>
+                                                            <td>
+                                                                <input type="text" name='' placeholder='Đơn giá'
+                                                                       class="form-control" />
+                                                            </td>
+                                                            <td>
+                                                                <input type="text" name='' placeholder='Tăng' class="form-control" />
+                                                            </td>
+                                                            <td>
+                                                                <input type="text" name='' placeholder='Giảm' class="form-control" />
+                                                            </td>
+                                                            <td>
+                                                                <input type="text" name='' placeholder='thành tiền'
+                                                                       class="form-control" />
+                                                            </td>
+                                                        </tr>
+                                                        <tr id='addr21'></tr>
+                                                    </tbody>
+                                                </table>
+
+                                                <div class="input-group col-sm-offset-8 col-md-4">
+                                                    <span class="input-group-addon">Tổng tiền</span>
+                                                    <input type="text" class="form-control" placeholder="..."
+                                                           readonly="true">
+                                                    <span class="input-group-addon">vnđ</span>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <div>
+                                            <a id="add_row2" class="btn btn-success pull-left">
+                                                <span class="glyphicon glyphicon-plus"></span>Thêm
+                                                dòng
+                                            </a>
+                                            <a id='delete_row2' class=" btn btn-danger">
+                                                <span class="glyphicon glyphicon-minus"></span>Xóa
+                                                dòng
+                                            </a>
+                                        </div>
+
+
+
+                                    </div>
+                                    <hr>
+
+                                    <div class="row">
+
+                                        <div class="col-md-3">
+                                            <label class="">Tình trạng phương tiện đo:</label>
+                                        </div>
+                                        <div class="row col-md-5">
+                                            <div class="row col-md-6">
+                                                <input type="checkbox" class="form-checkbox" id=""><label for="">Mới</label>
+                                            </div>
+                                            <div class="row col-md-6">
+                                                <input type="checkbox" class="form-checkbox" id=""><label for="">
+                                                    Đã
+                                                    qua sử dụng
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <label class="control-label col-md-2" for="" style="text-align: left;">
+                                            Ngày
+                                            yêu cầu trả
+                                            mẫu:
+                                        </label>
+                                        <div class="col-md-2">
+                                            <input type="date" class="form-control " id="" placeholder="" maxlength="12">
+                                        </div>
+
+
+                                        <div class="col-md-3">
+                                            <label class="">Hiệu lực hiệu chuẩn theo yêu cầu khách:</label>
+                                        </div>
+                                        <div class="row col-md-5">
+                                            <div class="row col-md-4">
+                                                <input type="checkbox" class="form-checkbox" id=""><label for="">
+                                                    6
+                                                    tháng
+                                                </label>
+                                            </div>
+                                            <div class="row col-md-4">
+                                                <input type="checkbox" class="form-checkbox" id=""><label for="">
+                                                    1
+                                                    năm
+                                                </label>
+                                            </div>
+                                            <div class="row col-md-4">
+                                                <input type="checkbox" class="form-checkbox" id=""><label for="">khác</label>
+                                            </div>
+                                        </div>
+
+
+
+
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <label class="control-label col-md-2" for="" style="text-align: left;">
+                                            Ngày
+                                            nhận đăng
+                                            ký:
+                                        </label>
+                                        <div class="col-md-2">
+                                            <input type="date" class="form-control " id="" placeholder="" maxlength="12">
+                                        </div>
+
+
+                                        <div class="row col-md-8">
+                                            <label class="col-md-2" for="">Tiếp nhận bằng</label>
+                                            <div class="row col-md-3">
+                                                <input type="checkbox" class="form-checkbox" id=""><label for="">
+                                                    Công
+                                                    văn
+                                                </label>
+                                            </div>
+                                            <div class="row col-md-3">
+                                                <input type="checkbox" class="form-checkbox" id=""><label for="">
+                                                    Điện
+                                                    thoại
+                                                </label>
+                                            </div>
+
+                                            <div class="row col-md-3">
+                                                <input type="checkbox" class="form-checkbox" id=""><label for="">
+                                                    Trực
+                                                    tiếp
+                                                </label>
+                                            </div>
+                                            <div class="row col-md-1">
+                                                <input type="checkbox" class="form-checkbox" id=""><label for="">Fax</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <label class="control-label col-md-2" for="" style="text-align: left;">
+                                            Ngày
+                                            trả kết
+                                            quả KĐ/HC dự kiến:
+                                        </label>
+                                        <div class="col-md-2">
+                                            <input type="date" class="form-control " id="" placeholder="">
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row ">
+                                        <div class="col-md-2">
+                                            <label class="control-label" for="" style="text-align: left;">
+                                                Nơi
+                                                thực hiện:
+                                            </label>
+                                        </div>
+
+                                        <div class="row col-md-2">
+                                            <input type="checkbox" class="form-checkbox" id=""><label for="">
+                                                Tại
+                                                cở sở
+                                            </label>
+                                        </div>
+                                        <div class="row col-md-3">
+                                            <input type="checkbox" class="form-checkbox" id=""><label for="">
+                                                TTKT
+                                                TĐC Tp.HCM
+                                            </label>
+                                        </div>
+                                        <label class="control-label col-md-2" for="" style="text-align: left;">
+                                            Giấy
+                                            chứng nhận
+                                            trả
+                                            bằng tiếng:
+                                        </label>
+                                        <div class="row col-md-2">
+                                            <input type="checkbox" class="form-checkbox" id=""><label for="">
+                                                Tiếng
+                                                Việt
+                                            </label>
+                                        </div>
+                                        <div class="row col-md-2">
+                                            <input type="checkbox" class="form-checkbox" id=""><label for="">
+                                                Tiếng
+                                                Anh
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <hr>
+
+
+                                </div>
+                                <br>
+                                <hr>
+                                <button type="submit" class="btn btn-primary center-block">Xác nhận</button>
+
+
+                            </div>
+                        </form>
+                    </fieldset>
+
+                </div>
+
+
+
+            </div>
+
+        </div>
+
+    </div>*@

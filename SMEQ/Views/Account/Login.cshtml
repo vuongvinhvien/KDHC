@@ -43,7 +43,8 @@
                                     @Html.PasswordFor(m => m.Password, new
                                {
                                    @class = "form-control",
-                                   @placeholder = Html.DisplayPlaceHolderFor(m => m.Password)
+                                   @placeholder = Html.DisplayPlaceHolderFor(m => m.Password),
+                                   @autocomplete="off"
                                })
                                     @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
                                 </div>

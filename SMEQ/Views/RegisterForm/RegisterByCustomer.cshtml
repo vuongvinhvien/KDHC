@@ -1,0 +1,120 @@
+﻿
+@{
+                /**/
+
+                ViewBag.Title = "RegisterByCustomer";
+                Layout = "~/Views/Shared/_LayoutPage.cshtml";
+}
+<style>
+</style>
+<title>@ViewBag.Title</title>
+<div class="row">
+    <fieldset>
+        <legend>
+            <h2>PHIẾU ĐĂNG KÝ</h2>
+        </legend>
+        <div class="text-center">
+            <hr>
+            <form class="form-horizontal text-left " action="/action_page.cshtml">
+                <div class="col-md-12 container">
+
+
+
+                    <div class="row form-group row ">
+                        <div class="col-md-4 row">
+                            <label class="control-label col-md-4" for="">Mã số thuế:</label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" id="" placeholder="" readonly>
+                            </div>
+                        </div>
+                        <div class="col-md-8 row">
+                            <label class="control-label col-md-2 " for="">Tên đơn vị:</label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" id="" placeholder="" readonly>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="container">
+                        <div class="row clearfix">
+                            <div class="col-md-11 column">
+                                <table class="table table-bordered table-hover" id="tab_logic">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th class="text-center">
+                                                #
+                                            </th>
+                                            <th class="text-center col-md-4">
+                                                Phương tiện đo
+                                            </th>
+                                            <th class="text-center col-md-1">
+                                                Số lượng
+                                            </th>
+                                            <th class="text-center col-md-4">
+                                                Phương pháp thử
+                                            </th>
+                                            <th class="text-center " colspan="2">
+                                                Yêu cầu
+                                            </th>
+
+                                        </tr>
+                                        </thead>
+                                    <tbody>
+                                        <tr id='addr0'>
+                                            <td class="text-center">
+                                                1
+                                            </td>
+                                            <td>
+                                                <input type="text" name='name0' placeholder='Phương tiện đo'
+                                                       class="form-control" />
+                                            </td>
+                                            <td>
+                                                <input type="text" name='mail0' placeholder='Số lượng' class="form-control" />
+                                            </td>
+                                            <td>
+                                                <input type="text" name='mobile0' placeholder='Phương pháp thử'
+                                                       class="form-control" />
+                                            </td>
+                                            <td>
+                                                <input type="text" name='mobile0' placeholder='Kiểm định' class="form-control" />
+                                            </td>
+                                            <td>
+                                                <input type="text" name='mobile0' placeholder='Hiệu chuẩn'
+                                                       class="form-control" />
+                                            </td>
+                                        </tr>
+                                        <tr id='addr1'></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <a id="add_row" class="btn btn-success pull-left">
+                            <span class="glyphicon glyphicon-plus"></span>Thêm
+                            dòng
+                        </a><a id='delete_row' class=" btn btn-danger">
+                            <span class="glyphicon glyphicon-minus"></span>Xóa
+                            dòng
+                        </a>
+                    </div>
+                    <hr>
+
+
+
+
+
+
+                </div>
+                <br>
+                <hr>
+                <div class="row col-md-offset-5 text-center">
+                    @*<button type="submit" class="btn btn-default col-md-2">Quay lại</button>*@
+                    @Html.ActionLink("Quay lại", "Index", "Customer", null, new { @class = "btn btn-default btn-large col-md-2" })
+
+                    <button type="reset" class="btn btn-success col-md-2">Đăng ký</button>
+                </div>
+            </form>
+        </div>
+    </fieldset>
+</div>

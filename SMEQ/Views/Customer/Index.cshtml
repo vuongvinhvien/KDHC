@@ -1,0 +1,127 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout ="~/Views/Shared/_LayoutPage.cshtml";
+    
+}
+
+<title>@ViewBag.Title</title>
+
+    <div class="row">
+        <fieldset>
+            <legend>
+                <h2>ĐĂNG KÝ THÔNG TIN</h2>
+            </legend>
+            <div class="text-center">
+                <hr>
+                <div class="col-md-12 container">
+                    <form class="form-horizontal text-left " action="/action_page.cshtml">
+
+
+                        <div class="row form-group row ">
+                            <div class="col-md-4 row">
+                                <label class="control-label col-md-4" for="">Mã số thuế:</label>
+                                <div class="col-md-8">
+                                    <input type="" class="form-control" id="" placeholder="">
+                                </div>
+                            </div>
+                            <div class="col-md-8 row">
+                                <label class="control-label col-md-2 " for="">Tên đơn vị:</label>
+                                <div class="col-md-8">
+                                    <input type="" class="form-control" id="" placeholder="">
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="form-group row">
+
+
+                            <div class="col-md-4 row">
+                                <label class="control-label col-md-4" for="">Địa chỉ:</label>
+                                <div class="col-md-8">
+                                    <input type="" class="form-control" id="" placeholder="">
+                                </div>
+                            </div>
+
+
+                            <div class="col-sm-4 row">
+                                <label class="control-label col-xm-6 col-sm-offset-2" for="">Tỉnh/thành:</label>
+                                <select class="Province col-xm-6" style="width:150px;">
+                                    <option> Chọn tỉnh</option>
+                                    <option>tp.HCM</option>
+                                    <option>Đà nẵng</option>
+                                    <option>Vũng Tàu</option>
+                                    <option>Cần Thơ</option>
+                                    <option>Khánh Hòa</option>
+                                    <option>...</option>
+                                </select>
+                            </div>
+                            <!-- <input type="" class="form-control" id="" placeholder=""> -->
+                            <div class="col-sm-4 row">
+                                <label class="control-label col-xm-6 col-sm-offset-1" for="">Quận/huyện:</label>
+                                <select class="District col-xm-6" style="width:150px;">
+                                    <option> Chọn huyện </option>
+                                    <option>Quận 1</option>
+                                    <option>Thủ Đức</option>
+                                    <option>Quận 5</option>
+                                    <option>Tuy Đức</option>
+                                    <option>Hiệp Bình</option>
+                                    <option>...</option>
+                                </select>
+                            </div>
+
+                            <!-- <input type="" class="form-control" id="" placeholder=""> -->
+
+                        </div>
+
+                        <div class="row form-group row ">
+                            <div class="col-md-4 row">
+                                <label class="control-label col-md-4" for="">Số điện thoại:</label>
+                                <div class="col-md-8">
+                                    <input type="number" class="form-control " id="" placeholder="" maxlength="12">
+                                </div>
+                            </div>
+                            <div class="col-md-4 row">
+                                <label class="control-label col-md-4" for="">Fax:</label>
+                                <div class="col-md-8">
+                                    <input type="" class="form-control" id="" placeholder="">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row form-group row ">
+                            <div class="col-md-4 row">
+                                <label class="control-label col-md-4" for="">Họ và Tên:</label>
+                                <div class="col-md-8">
+                                    <input type="" class="form-control" id="" placeholder="">
+                                </div>
+                            </div>
+                            <div class="col-md-4 row">
+                                <label class="control-label col-md-4" for="">Chức vụ:</label>
+                                <div class="col-md-8">
+                                    <input type="" class="form-control" id="" placeholder="đại diện">
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </form>
+
+
+                </div>
+                <br>
+                <hr>
+                @*<button type="submit" class="btn btn-primary center-block">Tiếp tục</button>
+                <button type="button" onclick="location.href='@Url.Action("Index", "Customer")'" />*@
+                @Html.ActionLink("Tiếp tục", "RegisterByCustomer", "RegisterForm", null, new { @class = "btn btn-primary btn-large" })
+                <br />
+
+
+            </div>
+        </fieldset>
+
+    </div>
+
+
+

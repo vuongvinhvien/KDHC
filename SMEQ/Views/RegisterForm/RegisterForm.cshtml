@@ -1,0 +1,433 @@
+﻿
+@{
+    ViewBag.Title = "RegisterForm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>RegisterForm</h2>
+
+<div class="container text-center">
+    <div class="row">
+        <fieldset>
+            <legend>
+                <h2>PHIẾU ĐĂNG KÝ</h2>
+            </legend>
+            <div class="text-center">
+                <hr>
+                <div class="col-md-12 container">
+                    <form class="form-horizontal text-left " action="/action_page.cshtml">
+
+
+                        <div class="row form-group row ">
+                            <div class="col-md-4 row">
+                                <label class="control-label col-md-4" for="">Mã số thuế:</label>
+                                <div class="col-md-8">
+                                    <input type="" class="form-control" id="" placeholder="">
+                                </div>
+                            </div>
+                            <div class="col-md-8 row">
+                                <label class="control-label col-md-2 " for="">Tên đơn vị:</label>
+                                <div class="col-md-8">
+                                    <input type="" class="form-control" id="" placeholder="" readonly="true">
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="form-group row">
+
+
+                            <div class="col-md-4 row">
+                                <label class="control-label col-md-4" for="">Địa chỉ:</label>
+                                <div class="col-md-8">
+                                    <input type="" class="form-control" id="" placeholder="" readonly="true">
+                                </div>
+                            </div>
+
+
+                            <div class="col-sm-4 row">
+                                <label class="control-label col-xm-6 col-sm-offset-2" for="">Tỉnh/thành:</label>
+                                <select class="Province col-xm-6" style="width:150px;">
+
+                                    <option>tp.HCM</option>
+                                    <option>Đà nẵng</option>
+                                    <option>Vũng Tàu</option>
+                                    <option>Cần Thơ</option>
+                                    <option>Khánh Hòa</option>
+                                    <option>...</option>
+                                </select>
+                            </div>
+                            <!-- <input type="" class="form-control" id="" placeholder=""> -->
+                            <div class="col-sm-4 row">
+                                <label class="control-label col-xm-6 col-sm-offset-1" for="">Quận/huyện:</label>
+                                <select class="District col-xm-6" style="width:150px;">
+
+                                    <option>Quận 1</option>
+                                    <option>Thủ Đức</option>
+                                    <option>Quận 5</option>
+                                    <option>Tuy Đức</option>
+                                    <option>Hiệp Bình</option>
+                                    <option>...</option>
+                                </select>
+                            </div>
+
+                            <!-- <input type="" class="form-control" id="" placeholder=""> -->
+
+                        </div>
+
+                        <div class="row form-group row ">
+                            <div class="col-md-4 row">
+                                <label class="control-label col-md-4" for="">Số điện thoại:</label>
+                                <div class="col-md-8">
+                                    <input type="number" class="form-control " id="" placeholder=""
+                                           maxlength="12" readonly="true">
+                                </div>
+                            </div>
+                            <div class="col-md-4 row">
+                                <label class="control-label col-md-4" for="">Fax:</label>
+                                <div class="col-md-8">
+                                    <input type="" class="form-control" id="" placeholder="" readonly="true">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row form-group row ">
+                            <div class="col-md-4 row">
+                                <label class="control-label col-md-4" for="">Họ và Tên:</label>
+                                <div class="col-md-8">
+                                    <input type="" class="form-control" id="" placeholder="" readonly="true">
+                                </div>
+                            </div>
+                            <div class="col-md-4 row">
+                                <label class="control-label col-md-4" for="">Chức vụ:</label>
+                                <div class="col-md-8">
+                                    <input type="" class="form-control" id="" placeholder="đại diện" readonly="true">
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="container">
+                            <div class="row clearfix">
+                                <div class="col-md-11 column">
+                                    <table class="table table-bordered table-hover" id="tab_logic">
+                                        <thead class="thead-dark">
+                                            <tr>
+                                                <th class="text-center">
+                                                    #
+                                                </th>
+                                                <th class="text-center col-md-4">
+                                                    Phương tiện đo
+                                                </th>
+                                                <th class="text-center col-md-1">
+                                                    Số lượng
+                                                </th>
+                                                <th class="text-center col-md-4">
+                                                    Phương pháp thử
+                                                </th>
+                                                <th class="text-center " colspan="2">
+                                                    Yêu cầu
+                                                </th>
+
+                                            </tr>
+                                            </thead-dark>
+                                        <tbody>
+                                            <tr id='addr0'>
+                                                <td class="text-center">
+                                                    1
+                                                </td>
+                                                <td>
+                                                    <input type="text" name='name0' placeholder='Phương tiện đo'
+                                                           class="form-control" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" name='mail0' placeholder='Số lượng'
+                                                           class="form-control" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" name='mobile0' placeholder='Phương pháp thử'
+                                                           class="form-control" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" name='mobile0' placeholder='Kiểm định'
+                                                           class="form-control" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" name='mobile0' placeholder='Hiệu chuẩn'
+                                                           class="form-control" />
+                                                </td>
+                                            </tr>
+                                            <tr id='addr1'></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <a id="add_row" class="btn btn-success pull-left">
+                                <span class="glyphicon glyphicon-plus"></span>Thêm
+                                dòng
+                            </a><a id='delete_row' class=" btn btn-danger">
+                                <span class="glyphicon glyphicon-minus"></span>Xóa
+                                dòng
+                            </a>
+                        </div>
+                        <hr>
+                        <div>
+                            <h3 class="text-center">NHẬN KIỂM ĐỊNH/ HIỆU CHUẨN:</h3>
+                            <p>
+                                <b>TTKT TĐC Tp.HCM</b> đã xem xét và nhận kiểm định/ hiệu chuẩn theo yêu
+                                cầu của
+                                khác
+                                hàng và các điều kiện ghi trong phiếu này. Chi phí kiểm định/ hiệu
+                                chuẩn được tính
+                                như
+                                sau:
+                            </p>
+                        </div>
+                        <div class="container">
+                            <div class="row clearfix">
+                                <div class="col-md-11 column">
+                                    <table class="table table-bordered table-hover" id="tab_logic2">
+                                        <thead class="thead-dark">
+                                            <tr>
+                                                <th class="text-center">
+                                                    #
+                                                </th>
+                                                <th class="text-center col-sm-4">
+                                                    Phương tiện đo
+                                                </th>
+                                                <th class="text-center col-sm-1">
+                                                    Số lượng"
+                                                </th>
+                                                <th class="text-center col-sm-2">
+                                                    Đơn giá
+                                                </th>
+                                                <th class="text-center col-sm-1">
+                                                    tăng
+                                                </th>
+                                                <th class="text-center col-sm-1">
+                                                    giảm
+                                                </th>
+                                                <th class="text-center col-sm-3">
+                                                    Thành tiền
+                                                </th>
+
+                                            </tr>
+                                            </thead-dark>
+                                        <tbody>
+                                            <tr id='addr20'>
+                                                <td>
+                                                    1
+                                                </td>
+                                                <td>
+                                                    <input type="text" name='' placeholder='Phương tiện đo'
+                                                           class="form-control" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" name='' placeholder='Số lượng'
+                                                           class="form-control" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" name='' placeholder='Đơn giá'
+                                                           class="form-control" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" name='' placeholder='Tăng' class="form-control" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" name='' placeholder='Giảm' class="form-control" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" name='' placeholder='thành tiền'
+                                                           class="form-control" />
+                                                </td>
+                                            </tr>
+                                            <tr id='addr21'></tr>
+                                        </tbody>
+                                    </table>
+
+                                    <div class="input-group col-sm-offset-8 col-md-4">
+                                        <span class="input-group-addon">Tổng tiền</span>
+                                        <input type="text" class="form-control" placeholder="..."
+                                               readonly="true">
+                                        <span class="input-group-addon">vnđ</span>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div>
+                                <a id="add_row2" class="btn btn-success pull-left">
+                                    <span class="glyphicon glyphicon-plus"></span>Thêm
+                                    dòng
+                                </a>
+                                <a id='delete_row2' class=" btn btn-danger">
+                                    <span class="glyphicon glyphicon-minus"></span>Xóa
+                                    dòng
+                                </a>
+                            </div>
+
+
+
+                        </div>
+                        <hr>
+
+                        <div class="row">
+
+                            <div class="col-md-3">
+                                <label class="">Tình trạng phương tiện đo:</label>
+                            </div>
+                            <div class="row col-md-5">
+                                <div class="row col-md-6">
+                                    <input type="checkbox" class="form-checkbox" id=""><label for="">Mới</label>
+                                </div>
+                                <div class="row col-md-6">
+                                    <input type="checkbox" class="form-checkbox" id=""><label for="">
+                                        Đã
+                                        qua sử dụng
+                                    </label>
+                                </div>
+                            </div>
+
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <label class="control-label col-md-2" for="" style="text-align: left;">
+                                Ngày
+                                yêu cầu trả
+                                mẫu:
+                            </label>
+                            <div class="col-md-2">
+                                <input type="date" class="form-control " id="" placeholder="" maxlength="12">
+                            </div>
+
+
+                            <div class="col-md-3">
+                                <label class="">Hiệu lực hiệu chuẩn theo yêu cầu khách:</label>
+                            </div>
+                            <div class="row col-md-5">
+                                <div class="row col-md-4">
+                                    <input type="checkbox" class="form-checkbox" id=""><label for="">
+                                        6
+                                        tháng
+                                    </label>
+                                </div>
+                                <div class="row col-md-4">
+                                    <input type="checkbox" class="form-checkbox" id=""><label for="">
+                                        1
+                                        năm
+                                    </label>
+                                </div>
+                                <div class="row col-md-4">
+                                    <input type="checkbox" class="form-checkbox" id=""><label for="">khác</label>
+                                </div>
+                            </div>
+
+
+
+
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <label class="control-label col-md-2" for="" style="text-align: left;">
+                                Ngày
+                                nhận đăng
+                                ký:
+                            </label>
+                            <div class="col-md-2">
+                                <input type="date" class="form-control " id="" placeholder="" maxlength="12">
+                            </div>
+
+
+                            <div class="row col-md-8">
+                                <label class="col-md-2" for="">Tiếp nhận bằng</label>
+                                <div class="row col-md-3">
+                                    <input type="checkbox" class="form-checkbox" id=""><label for="">
+                                        Công
+                                        văn
+                                    </label>
+                                </div>
+                                <div class="row col-md-3">
+                                    <input type="checkbox" class="form-checkbox" id=""><label for="">
+                                        Điện
+                                        thoại
+                                    </label>
+                                </div>
+
+                                <div class="row col-md-3">
+                                    <input type="checkbox" class="form-checkbox" id=""><label for="">
+                                        Trực
+                                        tiếp
+                                    </label>
+                                </div>
+                                <div class="row col-md-1">
+                                    <input type="checkbox" class="form-checkbox" id=""><label for="">Fax</label>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <label class="control-label col-md-2" for="" style="text-align: left;">
+                                Ngày
+                                trả kết
+                                quả KĐ/HC dự kiến:
+                            </label>
+                            <div class="col-md-2">
+                                <input type="date" class="form-control " id="" placeholder="">
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row ">
+                            <div class="col-md-2">
+                                <label class="control-label" for="" style="text-align: left;">
+                                    Nơi
+                                    thực hiện:
+                                </label>
+                            </div>
+
+                            <div class="row col-md-2">
+                                <input type="checkbox" class="form-checkbox" id=""><label for="">
+                                    Tại
+                                    cở sở
+                                </label>
+                            </div>
+                            <div class="row col-md-3">
+                                <input type="checkbox" class="form-checkbox" id=""><label for="">
+                                    TTKT
+                                    TĐC Tp.HCM
+                                </label>
+                            </div>
+                            <label class="control-label col-md-2" for="" style="text-align: left;">
+                                Giấy
+                                chứng nhận
+                                trả
+                                bằng tiếng:
+                            </label>
+                            <div class="row col-md-2">
+                                <input type="checkbox" class="form-checkbox" id=""><label for="">
+                                    Tiếng
+                                    Việt
+                                </label>
+                            </div>
+                            <div class="row col-md-2">
+                                <input type="checkbox" class="form-checkbox" id=""><label for="">
+                                    Tiếng
+                                    Anh
+                                </label>
+                            </div>
+                        </div>
+                        <hr>
+
+
+                </div>
+                <br>
+                <hr>
+                <button type="submit" class="btn btn-primary center-block">Submit</button>
+                </form>
+
+            </div>
+
+        </fieldset>
+    </div>
+    
+
+
+</div>

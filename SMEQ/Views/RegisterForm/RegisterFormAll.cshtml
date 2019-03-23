@@ -4,69 +4,205 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>RegisterFormAll</h2>
-@using (Html.BeginForm())
-{
-    @Html.ValidationSummary(true)
-    <fieldset>
-        <legend>Register</legend>
-        <div class="edit-label">
-            @Html.LabelFor(model => model.Code)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Code)
-            @Html.ValidationMessageFor(model => model.Code)
-        </div>
+<fieldset>
 
-        <div class="edit-label">
-            @Html.LabelFor(model => model.RegisterName)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.RegisterName)
-            @Html.ValidationMessageFor(model => model.RegisterName)
-        </div>
-        <div class="edit-label">
-            @Html.LabelFor(model => model.Testing)
-        </div>
-        <div class="edit-label">
-            @Html.
-        </div><div class="edit-label">
-            @Html.LabelFor(model => model.Calibration)
-        </div>
-        <div class="edit-label">
-            @Html.LabelFor(model => model.ReceivedDate)
-        </div>
+        <legend class="text-center">Register</legend>
+        <hr />
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <div class="form-horizontal">
 
-        <div class="edit-label">
-            @Html.LabelFor(model => model.ReceivedBy)
-        </div>
-        <div class="edit-label">
-            @Html.LabelFor(model => model.ReceivedBy)
-        </div>
-        <div class="edit-label">
-            @Html.LabelFor(model => model.ReceivedBy)
-        </div>
-        <div class="edit-label">
-            @Html.LabelFor(model => model.ReceivedBy)
-        </div>
-        <div class="edit-label">
-            @Html.LabelFor(model => model.ReceivedBy)
-        </div>
-        <div class="edit-label">
-            @Html.LabelFor(model => model.VehicleId)
-        </div>
-        <div class="edit-label">
-            @Html.LabelFor(model => model.ReceivedBy)
-        </div>
-        <div class="edit-label">
-            @Html.LabelFor(model => model.ReceivedBy)
-        </div>
-        <p>
-            <input type="submit" value="Create" />
-        </p>
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
 
-    </fieldset>
-}
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+                    @*<label class="control-label col-md-2">Tên đơn vị</label>*@
+                    @Html.LabelFor(model => model.Code, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Code)
+                    </div>
+                </div>
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+
+                    @*<label class="control-label col-md-2">Tên đơn vị</label>*@
+                    @Html.LabelFor(model => model.RegisterName, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.RegisterName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.RegisterName)
+                    </div>
+                </div>
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+               
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+
+                    @*<label class="control-label col-md-2">Tên đơn vị</label>*@
+                    @Html.LabelFor(model => model.ReceivedDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.ReceivedDate, new { htmlAttributes = new { @class = "form-control", @type="date" } })
+                        @Html.ValidationMessageFor(model => model.ReceivedDate)
+                    </div>
+                </div>
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+
+                    @*<label class="control-label col-md-2">Tên đơn vị</label>*@
+                    @Html.LabelFor(model => model.ReceivedBy, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.ReceivedBy, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ReceivedBy)
+                    </div>
+                </div>
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+
+                    @*<label class="control-label col-md-2">Tên đơn vị</label>*@
+                    @Html.LabelFor(model => model.Calibration, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.Testing, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Calibration)
+                    </div>
+                </div>
+                <div class="form-group">
+
+                    @*<label class="control-label col-md-2">Tên đơn vị</label>*@
+                    @Html.LabelFor(model => model.Testing, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.Testing, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Testing)
+                    </div>
+                </div>
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+
+                    @*<label class="control-label col-md-2">Tên đơn vị</label>*@
+                    @Html.LabelFor(model => model.EffectTime, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.EffectTime, new { htmlAttributes = new { @class = "form-control", @type="date"} })
+                        @Html.ValidationMessageFor(model => model.EffectTime)
+                    </div>
+                </div>
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+
+                    @*<label class="control-label col-md-2">Tên đơn vị</label>*@
+                    @Html.LabelFor(model => model.TotalPrice, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.TotalPrice, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.TotalPrice)
+                    </div>
+                </div>
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+
+                    @*<label class="control-label col-md-2">Tên đơn vị</label>*@
+                    @Html.LabelFor(model => model.LocationBy, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.LocationBy, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.LocationBy)
+                    </div>
+                </div>
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+
+                    @*<label class="control-label col-md-2">Tên đơn vị</label>*@
+                    @Html.LabelFor(model => model.Languge, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.Languge, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Languge)
+                    </div>
+                </div>
+                <div class="form-group">
+
+                    @*<label class="control-label col-md-2">Tên đơn vị</label>*@
+                    @Html.LabelFor(model => model.ExpectedDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.ExpectedDate, new { htmlAttributes = new { @class = "form-control", @Type="date"} })
+                        @Html.ValidationMessageFor(model => model.ExpectedDate)
+                    </div>
+                </div>
+                <div class="form-group">
+
+                    @*<label class="control-label col-md-2">Tên đơn vị</label>*@
+                    @Html.LabelFor(model => model.CreatedDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.CreatedDate, new { htmlAttributes = new { @class = "form-control", @type="date" } })
+                        @Html.ValidationMessageFor(model => model.CreatedDate)
+                    </div>
+                </div>
+                <div class="form-group">
+
+                    @*<label class="control-label col-md-2">Tên đơn vị</label>*@
+                    @Html.LabelFor(model => model.CreatedBy, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.CreatedBy, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.CreatedBy)
+                    </div>
+                </div>
+                <div class="form-group">
+
+                    @*<label class="control-label col-md-2">Tên đơn vị</label>*@
+                    @Html.LabelFor(model => model.ProcessingStatusId, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.ProcessingStatusId, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ProcessingStatusId)
+                    </div>
+                </div>
+                <div class="form-group">
+
+                    @*<label class="control-label col-md-2">Tên đơn vị</label>*@
+                    @Html.LabelFor(model => model.VehicleId, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.VehicleId, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.VehicleId)
+                    </div>
+                </div>
+                <div class="form-group">
+
+                    @*<label class="control-label col-md-2">Tên đơn vị</label>*@
+                    @Html.LabelFor(model => model.Quantlity, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.Quantlity, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Quantlity)
+                    </div>
+                </div>
+                <div class="form-group">
+
+                    @*<label class="control-label col-md-2">Tên đơn vị</label>*@
+                    @Html.LabelFor(model => model.Increace, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.Increace, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Increace)
+                    </div>
+                </div>
+                <div class="form-group">
+
+                    @*<label class="control-label col-md-2">Tên đơn vị</label>*@
+                    @Html.LabelFor(model => model.Decreace, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.Decreace, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Decreace)
+                    </div>
+                </div>
+                <div class="form-group">
+
+                    @*<label class="control-label col-md-2">Tên đơn vị</label>*@
+                    @Html.LabelFor(model => model.StatusVehicle, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.StatusVehicle, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.StatusVehicle)
+                    </div>
+                </div>
+
+                <p>
+                    <input type="submit" value="Create" class="btn btn-add-remove col-md-offset-4" />
+                </p>
+            </div>
+        }
+
+
+</fieldset>

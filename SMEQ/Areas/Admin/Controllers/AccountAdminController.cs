@@ -17,7 +17,7 @@ using Store.Web.Infrastructure.ExtensionMethod;
 namespace SMEQ.Areas.Admin.Controllers
 {
 
-    //[CustomAuthorize(Roles = "Superusers")]
+    [CustomAuthorize(Roles = "Superusers")]
     public class AccountAdminController : Controller
     {
         private ApplicationSignInManager _signInManager;

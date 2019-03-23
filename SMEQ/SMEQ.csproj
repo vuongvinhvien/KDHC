@@ -26,6 +26,7 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <TargetFrameworkProfile />
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -214,8 +215,11 @@
     <Compile Include="Controllers\Customer2Controller.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LocationController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\RegisterFormController.cs" />
+    <Compile Include="Controllers\TestMethodController.cs" />
+    <Compile Include="Controllers\VehicleController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -254,8 +258,10 @@
     <Content Include="Asset\script\bootstrap.js" />
     <Content Include="Asset\script\bootstrap.min.js" />
     <Content Include="Asset\script\chosen.jquery.min.js" />
+    <Content Include="Asset\script\jquery-bootstrap-modal-steps.js" />
     <Content Include="Asset\script\jquery-ui.min.js" />
     <Content Include="Asset\script\jquery.min.js" />
+    <Content Include="Asset\script\show_ads.js" />
     <Content Include="Asset\script\SMEQ.js" />
     <Content Include="Asset\skin\skin-blue.min.css" />
     <Content Include="Asset\css\Trangchu.css" />
@@ -267,6 +273,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Chatcss.css" />
+    <Content Include="Content\dataTables.bootstrap4.min.js" />
     <Content Include="Content\iconchat\adore.gif" />
     <Content Include="Content\iconchat\choler.gif" />
     <Content Include="Content\iconchat\Confused.gif" />
@@ -276,12 +283,15 @@
     <Content Include="Content\iconchat\ops.gif" />
     <Content Include="Content\iconchat\Shoked.gif" />
     <Content Include="Content\iconchat\still_dreaming.gif" />
+    <Content Include="Content\jquery.dataTables.min.js" />
     <Content Include="Content\jquery.mCustomScrollbar.css" />
     <Content Include="Content\Nhan.css" />
     <Content Include="Content\Home.css" />
+    <Content Include="Content\responsive.bootstrap.min.css" />
     <Content Include="Content\Sound\Sound.mp3" />
     <Content Include="Content\tabwebold.css" />
     <Content Include="favicon.ico" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="img\Home\arrow1.png" />
@@ -330,6 +340,9 @@
     <Content Include="Asset\fonts\fontawesome-webfont.woff" />
     <Content Include="Asset\fonts\fontawesome-webfont.woff2" />
     <Content Include="Asset\fonts\FontAwesome.otf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <None Include="Properties\PublishProfiles\ChatBox2525 - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\ChatBox2525 - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -413,12 +426,24 @@
     <Content Include="Views\Customer2\Edit.cshtml" />
     <Content Include="Views\Customer2\Index.cshtml" />
     <Content Include="Views\Customer\ShowGrid.cshtml" />
+    <Content Include="Views\Customer\Create.cshtml" />
+    <Content Include="Views\RegisterForm\ListRegister.cshtml" />
+    <Content Include="Views\RegisterForm\ListRegisterProcessing.cshtml" />
+    <Content Include="Views\RegisterForm\ListRegisterWait.cshtml" />
+    <Content Include="Views\RegisterForm\ListRegisterCompleted.cshtml" />
+    <Content Include="Views\Location\ListDistrict.cshtml" />
+    <Content Include="Views\Location\ListProvince.cshtml" />
+    <Content Include="Views\Vehicle\ListVehicle.cshtml" />
+    <Content Include="Views\TestMethod\ListTestMethod.cshtml" />
+    <Content Include="Views\RegisterForm\RegisterForm.cshtml" />
+    <Content Include="Views\Customer\Index.cshtml" />
+    <Content Include="Views\Shared\_LayoutPage.cshtml" />
+    <Content Include="Views\RegisterForm\RegisterByCustomer.cshtml" />
+    <Content Include="Views\RegisterForm\ListByCustomer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="fonts\font-awesome-4.7.0\" />
-    <Folder Include="UploadedImageAvartar2\" />
-    <Folder Include="UploadedImageAvartar\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

@@ -12,9 +12,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <title> User</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    @*<link rel="stylesheet" href="~/Content/bootstrap.min.css">*@
+    @*<link rel="stylesheet" href="~/Content/bootstrap.min.css">
+    <!-- Css bootstraptable  -->
+    @*https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css*@
     <!-- Css responsive  -->
-    <link href="https://cdn.datatables.net/responsive/2.1.1/css/responsive.bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/responsive.bootstrap.min.css" rel="stylesheet" />
     <link href="~/Asset/css/bootstrap-3.1.1-dist/css/bootstrap.min.css" rel="stylesheet" />
     <!-- Font Awesome -->
     <link rel="stylesheet" href="~/Asset/css/font-awesome.min.css">
@@ -28,16 +30,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link rel="stylesheet" href="~/Asset/skin/skin-blue.min.css">
 
     <script src="~/Asset/script/jquery.min.js"></script>
-
-    <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap4.min.js "></script> 
+    <script src="~/Asset/script/jquery-bootstrap-modal-steps.js"></script>
+    <script src="~/Content/jquery.dataTables.min.js"></script>
+    <script src="~/Content/dataTables.bootstrap4.min.js"></script> 
 
     <link rel="stylesheet" href="~/Asset/css/Index.css">
     <script src="~/Asset/script/jquery-ui.min.js"></script>
     <script src="~/Asset/script/chosen.jquery.min.js"></script>
-    <link rel=" stylesheet" href="~/Asset/css/jquery-ui.css">
+    <link rel="stylesheet" href="~/Asset/css/jquery-ui.css">
 
     <link rel="stylesheet" href="~/Asset/css/chosen.min.css">
+
     <link rel="shortcut icon" type="image/x-icon" href="~/Asset/Logo/SMEQvs4.png" />
     
 
@@ -52,95 +55,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     @*<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">*@
 
 
-    <script>
 
-        $(document).ready(function () {
-            $("#demoGrid").DataTable({
-
-                "processing": true, // for show progress bar
-                "serverSide": true, // for process server side
-                "filter": true, // this is for disable filter (search box)
-                "orderMulti": false, // for disable multiple column at once
-                "pageLength": 5,
-
-                "ajax": {
-                    "url": "/Demo/LoadData",
-                    "type": "POST",
-                    "datatype": "json"
-                },
-
-                "columnDefs":
-                [{
-                    "targets": [0],
-                    "visible": false,
-                    "searchable": false
-                },
-                {
-                    "targets": [7],
-                    "searchable": false,
-                    "orderable": false
-                },
-                {
-                    "targets": [8],
-                    "searchable": false,
-                    "orderable": false
-                },
-                {
-                    "targets": [9],
-                    "searchable": false,
-                    "orderable": false
-                }],
-
-                "columns": [
-                      { "data": "CustomerID", "name": "CustomerID", "autoWidth": true },
-                      { "data": "CompanyName", "name": "CompanyName", "autoWidth": true },
-                      { "data": "ContactName", "title": "ContactName", "name": "ContactName", "autoWidth": true },
-                      { "data": "ContactTitle", "name": "ContactTitle", "autoWidth": true },
-                      { "data": "City", "name": "City", "autoWidth": true },
-                      { "data": "PostalCode", "name": "PostalCode", "autoWidth": true },
-                      { "data": "Country", "name": "Country", "autoWidth": true },
-                      { "data": "Phone", "name": "Phone", "title": "Status", "autoWidth": true },
-                      {
-                          "render": function (data, type, full, meta)
-                          { return '<a class="btn btn-info" href="/Demo/Edit/' + full.CustomerID + '">Edit</a>'; }
-                      },
-                       {
-                           data: null, render: function (data, type, row) {
-                               return "<a href='#' class='btn btn-danger' onclick=DeleteData('" + row.CustomerID + "'); >Delete</a>";
-                           }
-                       },
-
-                ]
-
-            });
-        });
-    </script>  
-    <script>
-
-        function DeleteData(CustomerID) {
-            if (confirm("Are you sure you want to delete ...?")) {
-                Delete(CustomerID);
-            }
-            else {
-                return false;
-            }
-        }
-
-
-        function Delete(CustomerID) {
-            var url = '@Url.Content("~/")' + "Demo/DeleteCustomer";
-            $.post(url, { ID: CustomerID }, function (data) {
-                if (data == "Deleted") {
-                    alert("Delete Customer !");
-                    oTable = $('#demoGrid').DataTable();
-                    oTable.draw();
-                }
-                else {
-                    alert("Something Went Wrong!");
-                }
-            });
-        }
-    </script>
 
 </head>
 <!--
@@ -363,14 +278,14 @@ desired effect
                     <div class="pull-left info">
                         <p>@Html.Partial("_LoginPartial")</p>
                         <!-- Status -->
-                        <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+                        <a href="#"><i class="fa fa-toggle-on text-success"></i> Online</a>
                     </div>
                 </div>
 
                 <!-- search form (Optional) -->
                 <form action="#" method="get" class="sidebar-form">
                     <div class="input-group">
-                        <input type="" name="q" class="form-control" placeholder="Tìm nhanh Mã số thuế..." autocomplete="off">
+                        <input type="search" name="q" class="form-control" placeholder="Tìm nhanh Mã số thuế..." autocomplete="off">
                         <span class="input-group-btn">
                             <button type="submit" name="search" id="search-btn" class="btn btn-flat">
                                 <i class="glyphicon glyphicon-search"></i>
@@ -391,27 +306,33 @@ desired effect
                             </span>
                         </a>
                         <ul class="treeview-menu">
-                            <li><a href="DSKhachHang.html"> Danh sách khách hàng</a></li>
-                            <li><a href="DKTT.html"> Thêm khách hàng</a></li>
+                            <li><a href="/Customer/ShowGrid"><i class="fa fa-circle-o"></i> Danh sách khách hàng</a></li>
+                            <li><a href="/Customer/Create"><i class="fa fa-circle-o"></i> Thêm khách hàng</a></li>
+
                         </ul>
                     </li>
                     <!--  -->
                     <li class="treeview">
                         <a href="#">
-                            <i class="fa fa-paper-plane"></i> <span>Giấy đăng ký</span>
+                            <i class="fa fa-paper-plane"></i> <span>Kiểm định hiệu chuẩn</span>
                             <span class="pull-right-container">
                                 <i class="fa fa-angle-left pull-right"></i>
                             </span>
                         </a>
                         <ul class="treeview-menu">
-                            <li><a href="GiayDKTaoBoiKhachHang.html">Giấy mới tạo bởi khách hàng </a></li>
-                            <li><a href="DSChuaXuLi.html">Giấy nhận đăng ký</a></li>
-                            <li><a href="DSDangXuLi.html">Giấy đăng ký đang xử lý</a></li>
-                            <li><a href="DSChoTra.html">Giấy đăng ký đang chờ trả</a></li>
-                            <li><a href="DSHoanTat.html">Giấy đăng ký hoàn tất</a></li>
+
+                            @*<li><a href="/RegisterForm/RegisterFormAll"><i class="fa fa-circle-o-notch"></i> Test nhập gdk </a></li>*@
+                            @*<li><a href="/RegisterForm/RegisterForm"><i class="fa fa-circle-o"></i> Giấy đăng ký</a></li>*@
+                            <li><a href="/RegisterForm/ListByCustomer"><i class="fa fa-circle-o"></i> Giấy mới tạo bởi khách hàng</a></li>
+                            <li><a href="/RegisterForm/ListRegister"><i class="fa fa-circle-o"></i> Giấy nhận đăng ký</a></li>
+                            <li><a href="/RegisterForm/ListRegisterProcessing"><i class="fa fa-circle-o"></i> Giấy đăng ký đang xử lý</a></li>
+                            <li><a href="/RegisterForm/ListRegisterWait"><i class="fa fa-circle-o"></i> Giấy đăng ký chờ trả</a></li>
+                            <li><a href="/RegisterForm/ListRegisterCompleted"><i class="fa fa-circle-o"></i> Giấy đăng ký hoàn tất</a></li>
+
 
                         </ul>
                     </li>
+
 
 
 
@@ -438,12 +359,10 @@ desired effect
                         </a>
 
                         <ul class="treeview-menu">
-                            <li><a href="DSTinhThanh.html">Tỉnh thành</a></li>
-                            <li><a href="DSQuanHuyen.html">Quận /Huyện</a></li>
-                            <li><a href="DMPPThu.html">Danh mục phương pháp thử</a></li>
-                            <li><a href="DMPTD.html">Danh mục phương tiện đo</a></li>
-                            <li><a href="DMPPThu.html">Đơn giá hiện tại</a></li>
-
+                            <li><a href="/Location/ListProvince"><i class="fa fa-circle-o"></i> Tỉnh thành</a></li>
+                            <li><a href="/Location/ListDistrict"><i class="fa fa-circle-o"></i> Quận/ huyệnt</a></li>
+                            <li><a href="/Vehicle/ListVehicle"><i class="fa fa-circle-o"></i> Danh mục phương tiện đo</a></li>
+                            <li><a href="/TestMethod/ListTestMethod"><i class="fa fa-circle-o"></i> Danh mục phương pháp thử</a></li>
                         </ul>
                     </li>
 
@@ -454,10 +373,10 @@ desired effect
                                 <i class="fa fa-angle-left pull-right"></i>
                             </span>
                         </a>
-                        <ul class="treeview-menu">
-                            <li><a href="#">Bộ phận xử lí</a></li>
-                            <li><a href="#">TTKT</a></li>
-                        </ul>
+                        @*<ul class="treeview-menu">
+                                <li><a href="#">Bộ phận xử lí</a></li>
+                                <li><a href="#">TTKT</a></li>
+                            </ul>*@
                     </li>
 
                 </ul>
@@ -467,28 +386,32 @@ desired effect
         </aside>
 
         <!-- Content Wrapper. Contains page content -->
-        <div class="content-wrapper">
-            <!-- Content Header (Page header) -->
-            <section class="content-header">
+        <fieldset>
+            <div class="content-wrapper">
+                <!-- Content Header (Page header) -->
+                @*<section class="content-header">
 
-                <ol class="breadcrumb">
-                    <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
-                    <li class="active">Here</li>
-                </ol>
+                        <ol class="breadcrumb">
+                            <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
+                            <li class="active">Here</li>
+                        </ol>
 
 
 
-            </section>
+                    </section>*@
 
-            <!-- Main content -->
-            <section class="content container-fluid">
-                <!--------------------------
-                | Your Page Content Here |asd
-                -------------------------->
-                @RenderBody()
-            </section>
-            <!-- /.content -->
-        </div>
+                <!-- Main content -->
+                <section class="content container-fluid">
+                    <!--------------------------
+                    | Your Page Content Here |asd
+                    -------------------------->
+                    @RenderBody()
+                </section>
+                <!-- /.content -->
+
+
+            </div>
+        </fieldset>
         <!-- /.content-wrapper -->
         <!-- Main Footer -->
         <footer class="main-footer">
@@ -508,7 +431,7 @@ desired effect
     </div>
     <!-- ./wrapper -->
     <!-- REQUIRED JS SCRIPTS -->
-    <!-- jQuery 3 -->
+    <!-- jQuery 3 -->s
     <!-- Bootstrap 3.3.7 -->
     <script src="~/Asset/script/bootstrap.min.js"></script>
     <!-- AdminLTE App -->
@@ -516,7 +439,9 @@ desired effect
 
     <script src="~/Asset/script/SMEQ.js"></script>
 
-
+    <script>
+        $('#myModal').modalSteps();
+    </script>
 
     <!-- Optionally, you can add Slimscroll and FastClick plugins.
      Both of these plugins are recommended to enhance the

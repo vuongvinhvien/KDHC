@@ -17,7 +17,7 @@ namespace SMEQ.Controllers
         // GET: Customer2
         public ActionResult Index()
         {
-            var customer2 = db.Customer2.Include(c => c.District);
+            var customer2 = db.Customer2.Include(c => c.District.Province);
             return View(customer2.ToList());
         }
 
@@ -52,6 +52,8 @@ namespace SMEQ.Controllers
         {
             if (ModelState.IsValid)
             {
+                var abc = db.Districts.Find(customer2.DistrictId);
+                customer2.Name = abc.Name;
                 db.Customer2.Add(customer2);
                 db.SaveChanges();
                 return RedirectToAction("Index");
